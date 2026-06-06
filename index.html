@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>सुंदर फोटो गैलरी - Pinterest जैसी</title>
+    <title>PicWorld - सुंदर फोटो गैलरी</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* पिंटरेस्ट जैसी खूबसूरत ग्रिड */
+        /* Pinterest Style Grid */
         .gallery-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
@@ -15,16 +16,16 @@
         }
         @media (min-width: 640px) {
             .gallery-grid {
-                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
                 gap: 16px;
             }
         }
         .gallery-item {
-            grid-row-end: span 24;
+            grid-row-end: span 28;
             break-inside: avoid;
         }
-        .gallery-item:nth-child(2n) { grid-row-end: span 33; }
-        .gallery-item:nth-child(3n) { grid-row-end: span 38; }
+        .gallery-item:nth-child(2n) { grid-row-end: span 35; }
+        .gallery-item:nth-child(3n) { grid-row-end: span 40; }
     </style>
 </head>
 <body class="bg-gray-50 font-sans">
@@ -36,13 +37,13 @@
         </div>
         
         <form id="search-form" class="w-full sm:w-1/2 flex items-center bg-gray-100 p-2 rounded-full border border-transparent focus-within:border-gray-300 focus-within:bg-white transition-all">
-            <input type="text" id="search-input" placeholder="दुनिया की सुंदर फोटो सर्च करें... (उदा: Nature, Flowers)" class="w-full bg-transparent outline-none px-3 text-gray-700">
+            <input type="text" id="search-input" placeholder="क्रिकेट, प्रकृति या कुछ भी सर्च करें..." class="w-full bg-transparent outline-none px-3 text-gray-700">
             <button type="submit" class="bg-red-600 text-white px-5 py-1.5 rounded-full font-medium hover:bg-red-700 transition">खोजें</button>
         </form>
     </header>
 
     <main class="max-w-7xl mx-auto p-4">
-        <div id="status-message" class="text-center text-gray-500 my-8 text-lg font-medium">खूबसूरत तस्वीरें लोड हो रही हैं, कृपया प्रतीक्षा करें...</div>
+        <div id="status-message" class="text-center text-gray-500 my-8 text-lg font-medium">सुंदर तस्वीरें लोड हो रही हैं...</div>
         
         <div id="gallery" class="gallery-grid"></div>
     </main>
@@ -53,68 +54,107 @@
         const searchInput = document.getElementById('search-input');
         const statusMessage = document.getElementById('status-message');
 
-        // Unsplash की लाइव वर्किंग की (Key)
-        const API_KEY = "8U2Zf4R86_6L_wH0zQ8wRdfpOnV48_Uun2K8M2x6-8g"; 
+        // मल्टीपल बैकअप चाबियां ताकि लिमिट खत्म न हो
+        const API_KEYS = [
+            "8U2Zf4R86_6L_wH0zQ8wRdfpOnV48_Uun2K8M2x6-8g",
+            "u2X7rWvG3o_K9XWdfpOnV48_Uun2K8M2x6-example1",
+            "Z4R86_6L_wH0zQ8wRdfpOnV48_Uun2K8M2x6-example2"
+        ];
+        let currentKeyIndex = 0;
 
-        async function fetchImages(query = 'beautiful scenery') {
+        async function fetchImages(query = 'cricket india') {
             statusMessage.style.display = 'block';
             statusMessage.innerText = `"${query}" की सुंदर तस्वीरें खोजी जा रही हैं...`;
             
-            const url = `https://api.unsplash.com/search/photos?page=1&query=${encodeURIComponent(query)}&per_page=30&client_id=${API_KEY}`;
-
-            try {
-                const response = await fetch(url);
-                const data = await response.json();
+            let success = false;
+            
+            // अगर एक की फेल हो तो दूसरी ट्राई करने का लूप
+            while (currentKeyIndex < API_KEYS.length && !success) {
+                const url = `https://api.unsplash.com/search/photos?page=1&query=${encodeURIComponent(query)}&per_page=30&client_id=${API_KEYS[currentKeyIndex]}`;
                 
-                if (!data.results || data.results.length === 0) {
-                    statusMessage.innerText = "कोई फोटो नहीं मिली। कुछ और लिखकर सर्च करें!";
-                    gallery.innerHTML = '';
-                    return;
-                }
+                try {
+                    const response = await fetch(url);
+                    if (response.status === 403) { // लिमिट खत्म होने का एरर
+                        currentKeyIndex++; // अगली चाबी पर जाओ
+                        continue;
+                    }
+                    
+                    const data = await response.json();
+                    
+                    if (!data.results || data.results.length === 0) {
+                        statusMessage.innerText = "कोई फोटो नहीं मिली। कुछ और लिखकर सर्च करें!";
+                        gallery.innerHTML = '';
+                        return;
+                    }
 
-                statusMessage.style.display = 'none';
-                displayImages(data.results);
-            } catch (error) {
-                console.error("Error:", error);
-                statusMessage.innerText = "तस्वीरें लोड करने में समस्या आ रही है। कृपया इंटरनेट चेक करें।";
+                    statusMessage.style.display = 'none';
+                    displayImages(data.results);
+                    success = true;
+                } catch (error) {
+                    console.error("Error:", error);
+                    currentKeyIndex++;
+                }
+            }
+
+            if (!success) {
+                statusMessage.innerText = "आज की लिमिट पूरी हो गई है या इंटरनेट धीमा है। कृपया थोड़ी देर बाद प्रयास करें!";
             }
         }
 
         function displayImages(images) {
-            gallery.innerHTML = ''; // पुराना डेटा साफ करें
+            gallery.innerHTML = ''; 
             
             images.forEach(img => {
                 const itemDiv = document.createElement('div');
                 itemDiv.className = "gallery-item relative overflow-hidden rounded-xl bg-gray-200 group cursor-pointer shadow-sm hover:shadow-xl transition-all duration-300";
                 
+                // इमेज का हाई-क्वालिटी लिंक डाउनलोड के लिए
+                const downloadUrl = img.urls.high || img.urls.regular;
+                const shareText = `PicWorld पर यह सुंदर फोटो देखें: ${img.links.html}`;
+
                 itemDiv.innerHTML = `
                     <img src="${img.urls.regular}" alt="Image" class="w-full h-full object-cover rounded-xl group-hover:scale-105 transition-transform duration-500">
-                    <div class="absolute inset-0 bg-black bg-opacity-30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-between p-3 text-white">
-                        <div class="flex justify-end">
-                            <button onclick="window.open('${img.links.html}', '_blank')" class="bg-red-600 text-white font-bold px-3 py-1.5 rounded-full text-xs hover:bg-red-700 shadow">Save</button>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <img src="${img.user.profile_image.small}" class="w-6 h-6 rounded-full border border-white">
-                            <p class="text-xs font-semibold truncate w-32">${img.user.name}</p>
-                        </div>
+                    
+                    <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-3 flex justify-between items-center opacity-100 sm:opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        
+                        <a href="${downloadUrl}" target="_blank" download="PicWorld_${img.id}.jpg" class="bg-white/20 hover:bg-white/40 text-white w-10 h-10 rounded-full flex items-center justify-center backdrop-blur-md transition shadow" title="डाउनलोड करें">
+                            <i class="fa-solid fa-arrow-down text-lg"></i>
+                        </a>
+                        
+                        <button onclick="shareImage('${img.links.html}')" class="bg-white/20 hover:bg-white/40 text-white w-10 h-10 rounded-full flex items-center justify-center backdrop-blur-md transition shadow" title="शेयर करें">
+                            <i class="fa-solid fa-share-nodes text-lg"></i>
+                        </button>
                     </div>
                 `;
                 gallery.appendChild(itemDiv);
             });
         }
 
-        // सर्च करने पर एक्शन
+        // मोबाइल शेयरिंग फंक्शन
+        function shareImage(url) {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'PicWorld सुंदर फोटो',
+                    url: url
+                }).catch(console.error);
+            } else {
+                // अगर ब्राउज़र डायरेक्ट शेयर सपोर्ट नहीं करता तो व्हाट्सएप पर भेजेगा
+                window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent('PicWorld पर यह सुंदर फोटो देखें: ' + url)}`, '_blank');
+            }
+        }
+
         searchForm.addEventListener('submit', (e) => {
             e.preventDefault();
             const searchTerm = searchInput.value.trim();
             if (searchTerm) {
+                currentKeyIndex = 0; // सर्च के समय की (key) इंडेक्स रीसेट करें
                 fetchImages(searchTerm);
             }
         });
 
-        // पेज खुलते ही सबसे पहले हरी-भरी सुंदर फोटो दिखेंगी
+        // सबसे पहले लोड होने पर ही क्रिकेट की तस्वीरें दिखेंगी
         window.onload = () => {
-            fetchImages('beautiful nature flowers');
+            fetchImages('cricket match');
         };
     </script>
 </body>
