@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PicWorld - अपना खुद का सर्च इंजन</title>
+    <title>PicWorld - मेरा खुद का सर्च इंजन</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* पिंटरेस्ट स्टाइल ग्रिड */
         .gallery-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
@@ -15,15 +14,9 @@
             gap: 12px;
         }
         @media (min-width: 640px) {
-            .gallery-grid {
-                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-                gap: 16px;
-            }
+            .gallery-grid { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; }
         }
-        .gallery-item {
-            grid-row-end: span 28;
-            break-inside: avoid;
-        }
+        .gallery-item { grid-row-end: span 28; break-inside: avoid; }
         .gallery-item:nth-child(2n) { grid-row-end: span 35; }
         .gallery-item:nth-child(3n) { grid-row-end: span 40; }
     </style>
@@ -37,14 +30,13 @@
         </div>
         
         <form id="search-form" class="w-full sm:w-1/2 flex items-center bg-gray-100 p-2 rounded-full border border-transparent focus-within:border-gray-300 focus-within:bg-white transition-all">
-            <input type="text" id="search-input" placeholder="क्रिकेट, प्रकृति, या कुछ भी सर्च करें... कोई API लिमिट नहीं!" class="w-full bg-transparent outline-none px-3 text-gray-700">
+            <input type="text" id="search-input" placeholder="क्रिकेट या कुछ भी सर्च करें... अपनी खुद की स्वतंत्र API!" class="w-full bg-transparent outline-none px-3 text-gray-700">
             <button type="submit" class="bg-red-600 text-white px-5 py-1.5 rounded-full font-medium hover:bg-red-700 transition">खोजें</button>
         </form>
     </header>
 
     <main class="max-w-7xl mx-auto p-4">
-        <div id="status-message" class="text-center text-gray-500 my-8 text-lg font-medium">इंटरनेट से लाइव तस्वीरें निकाली जा रही हैं...</div>
-        
+        <div id="status-message" class="text-center text-gray-500 my-8 text-lg font-medium">मेरे सर्वर से तस्वीरें निकाली जा रही हैं...</div>
         <div id="gallery" class="gallery-grid"></div>
     </main>
 
@@ -54,88 +46,42 @@
         const searchInput = document.getElementById('search-input');
         const statusMessage = document.getElementById('status-message');
 
-        // यह फंक्शन बिना किसी API के, सीधे इंटरनेट सर्च इंजन से फोटो स्क्रैप करके लाता है
-        async function fetchImagesDirect(query) {
+        async function myOwnSearchEngine(query = 'Indian cricket team') {
             statusMessage.style.display = 'block';
-            statusMessage.innerText = `"${query}" की लाइव तस्वीरें पूरे इंटरनेट से खोजी जा रही हैं...`;
-            gallery.innerHTML = '';
-
+            statusMessage.innerText = `"${query}" की लाइव तस्वीरें खोजी जा रही हैं...`;
+            
             try {
-                // बिना API के सीधे सर्च इंजन से इमेज डेटा निकालने का प्रॉक्सी यूआरएल
-                const targetUrl = `https://images.search.yahoo.com/search/images?p=${encodeURIComponent(query)}`;
-                const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(targetUrl)}`;
-
-                const response = await fetch(proxyUrl);
+                // यह आपकी खुद की बनाई हुई लोकल API (/api/search) को हिट करेगा
+                const response = await fetch(`/api/search?q=${encodeURIComponent(query)}`);
                 const data = await response.json();
                 
-                // HTML कोड में से इमेज के असली लिंक्स निकालना (Regex parsing)
-                const htmlString = data.contents;
-                const regex = /"murl":"(http[^"]+\.(jpg|jpeg|png|webp|gif))"/g;
-                let match;
-                const imageUrls = [];
-
-                while ((match = regex.exec(htmlString)) !== null) {
-                    // डुप्लीकेट लिंक्स हटाने के लिए
-                    if (!imageUrls.includes(match[1])) {
-                        imageUrls.push(match[1]);
-                    }
-                    if (imageUrls.length >= 40) break; // टॉप 40 बेहतरीन फोटो निकालेंगे
-                }
-
-                if (imageUrls.length === 0) {
-                    // बैकअप तरीका: अगर पहला तरीका फेल हो तो दूसरे ओपन सर्च इंजन का इस्तेमाल
-                    statusMessage.innerText = "थोड़ा समय लग रहा है, दूसरा सर्वर आज़माया जा रहा है...";
-                    await fetchBackupImages(query);
+                if (!data.results || data.results.length === 0) {
+                    statusMessage.innerText = "कोई फोटो नहीं मिली। कुछ और सर्च करें!";
+                    gallery.innerHTML = '';
                     return;
                 }
 
                 statusMessage.style.display = 'none';
-                displayImages(imageUrls);
-
+                displayImages(data.results);
             } catch (error) {
-                console.error("Scraping error:", error);
-                statusMessage.innerText = "इंटरनेट से तस्वीरें सीधे खींचने में समस्या आई। कुछ और सर्च करें।";
+                console.error(error);
+                statusMessage.innerText = "सर्वर कनेक्ट करने में समस्या। कृपया इसे Vercel पर होस्ट करें।";
             }
         }
 
-        // बैकअप स्क्रैपर तरीका
-        async function fetchBackupImages(query) {
-            try {
-                const url = `https://pixabay.com/api/?key=25414343-4b684cb3a702755ea63a033b0&q=${encodeURIComponent(query)}&image_type=photo&per_page=40`;
-                const response = await fetch(url);
-                const data = await response.json();
-
-                if (!data.hits || data.hits.length === 0) {
-                    statusMessage.innerText = "पूरे इंटरनेट पर कोई फोटो नहीं मिली। कुछ और लिखें!";
-                    return;
-                }
-
-                const urls = data.hits.map(hit => hit.largeImageURL);
-                statusMessage.style.display = 'none';
-                displayImages(urls);
-            } catch (e) {
-                statusMessage.innerText = "सर्वर्स व्यस्त हैं। कृपया एक बार फिर खोजें!";
-            }
-        }
-
-        // स्क्रीन पर पिंटरेस्ट लुक में तस्वीरें सजाना
         function displayImages(urls) {
             gallery.innerHTML = '';
-            
-            urls.forEach((url, index) => {
+            urls.forEach(url => {
                 const itemDiv = document.createElement('div');
                 itemDiv.className = "gallery-item relative overflow-hidden rounded-xl bg-gray-200 group cursor-pointer shadow-sm hover:shadow-xl transition-all duration-300";
                 
                 itemDiv.innerHTML = `
                     <img src="${url}" alt="Live Image" class="w-full h-full object-cover rounded-xl group-hover:scale-105 transition-transform duration-500" onerror="this.parentElement.style.display='none'">
-                    
                     <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-3 flex justify-between items-center opacity-100 sm:opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        
-                        <a href="${url}" target="_blank" class="bg-white/20 hover:bg-white/40 text-white w-10 h-10 rounded-full flex items-center justify-center backdrop-blur-md transition shadow" title="ओरिजिनल फोटो देखें/डाउनलोड करें">
+                        <a href="${url}" target="_blank" class="bg-white/20 hover:bg-white/40 text-white w-10 h-10 rounded-full flex items-center justify-center backdrop-blur-md transition shadow">
                             <i class="fa-solid fa-arrow-down text-lg"></i>
                         </a>
-                        
-                        <button onclick="shareImage('${url}')" class="bg-white/20 hover:bg-white/40 text-white w-10 h-10 rounded-full flex items-center justify-center backdrop-blur-md transition shadow" title="शेयर करें">
+                        <button onclick="shareImage('${url}')" class="bg-white/20 hover:bg-white/40 text-white w-10 h-10 rounded-full flex items-center justify-center backdrop-blur-md transition shadow">
                             <i class="fa-solid fa-share-nodes text-lg"></i>
                         </button>
                     </div>
@@ -144,31 +90,21 @@
             });
         }
 
-        // मोबाइल नेटिव शेयर या व्हाट्सएप शेयर
         function shareImage(url) {
             if (navigator.share) {
-                navigator.share({
-                    title: 'PicWorld से शानदार फोटो',
-                    url: url
-                }).catch(console.error);
+                navigator.share({ title: 'PicWorld Photo', url: url }).catch(console.error);
             } else {
-                window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent('PicWorld पर यह लाइव फोटो देखें: ' + url)}`, '_blank');
+                window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(url)}`, '_blank');
             }
         }
 
-        // सर्च फॉर्म सबमिट होने पर
         searchForm.addEventListener('submit', (e) => {
             e.preventDefault();
             const searchTerm = searchInput.value.trim();
-            if (searchTerm) {
-                fetchImagesDirect(searchTerm);
-            }
+            if (searchTerm) myOwnSearchEngine(searchTerm);
         });
 
-        // पहली बार पेज लोड होने पर अपने आप क्रिकेट की लाइव तस्वीरें खोजेगा
-        window.onload = () => {
-            fetchImagesDirect('Indian cricket team');
-        };
+        window.onload = () => { myOwnSearchEngine(); };
     </script>
 </body>
 </html>
