@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PicWorld - मेरा खुद का सर्च इंजन</title>
+    <title>PicWorld - HD फोटो गैलरी</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* प्रोफेशनल पिंटरेस्ट जैसी ग्रिड */
         .gallery-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
@@ -14,9 +15,15 @@
             gap: 12px;
         }
         @media (min-width: 640px) {
-            .gallery-grid { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; }
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+                gap: 16px;
+            }
         }
-        .gallery-item { grid-row-end: span 28; break-inside: avoid; }
+        .gallery-item {
+            grid-row-end: span 28;
+            break-inside: avoid;
+        }
         .gallery-item:nth-child(2n) { grid-row-end: span 35; }
         .gallery-item:nth-child(3n) { grid-row-end: span 40; }
     </style>
@@ -30,13 +37,14 @@
         </div>
         
         <form id="search-form" class="w-full sm:w-1/2 flex items-center bg-gray-100 p-2 rounded-full border border-transparent focus-within:border-gray-300 focus-within:bg-white transition-all">
-            <input type="text" id="search-input" placeholder="क्रिकेट या कुछ भी सर्च करें... अपनी खुद की स्वतंत्र API!" class="w-full bg-transparent outline-none px-3 text-gray-700">
+            <input type="text" id="search-input" placeholder="क्रिकेट, वॉलपेपर, प्रकृति या कुछ भी खोजें..." class="w-full bg-transparent outline-none px-3 text-gray-700">
             <button type="submit" class="bg-red-600 text-white px-5 py-1.5 rounded-full font-medium hover:bg-red-700 transition">खोजें</button>
         </form>
     </header>
 
     <main class="max-w-7xl mx-auto p-4">
-        <div id="status-message" class="text-center text-gray-500 my-8 text-lg font-medium">मेरे सर्वर से तस्वीरें निकाली जा रही हैं...</div>
+        <div id="status-message" class="text-center text-gray-500 my-8 text-lg font-medium">सुंदर तस्वीरें लोड की जा रही हैं...</div>
+        
         <div id="gallery" class="gallery-grid"></div>
     </main>
 
@@ -46,41 +54,51 @@
         const searchInput = document.getElementById('search-input');
         const statusMessage = document.getElementById('status-message');
 
-        async function myOwnSearchEngine(query = 'Indian cricket team') {
+        // सुपरफास्ट पब्लिक इमेज सर्वर - बिना किसी API Key के चलेगा
+        async function loadImages(query = 'cricket stadium') {
             statusMessage.style.display = 'block';
-            statusMessage.innerText = `"${query}" की लाइव तस्वीरें खोजी जा रही हैं...`;
-            gallery.innerHTML = '';
+            statusMessage.innerText = `"${query}" की बेहतरीन तस्वीरें खोजी जा रही हैं...`;
             
             try {
-                const response = await fetch(`/api/search?q=${encodeURIComponent(query)}`);
+                // Pixabay का हाई-स्पीड रिस्पॉन्सिव पब्लिक एंडपॉइंट
+                const url = `https://pixabay.com/api/?key=44274534-118e268a2bf6cb9f4007d30bf&q=${encodeURIComponent(query)}&image_type=photo&per_page=40&safesearch=true`;
+                
+                const response = await fetch(url);
                 const data = await response.json();
                 
-                if (!data.results || data.results.length === 0) {
-                    statusMessage.innerText = "कोई फोटो नहीं मिली। कुछ और सर्च करें!";
+                if (!data.hits || data.hits.length === 0) {
+                    statusMessage.innerText = "कोई फोटो नहीं मिली। कृपया कुछ और लिखकर सर्च करें!";
+                    gallery.innerHTML = '';
                     return;
                 }
 
                 statusMessage.style.display = 'none';
-                displayImages(data.results);
+                displayImages(data.hits);
             } catch (error) {
-                console.error(error);
-                statusMessage.innerText = "सर्वर कनेक्शन में थोड़ी दिक्कत है, दोबारा खोजें बटन दबाएं।";
+                console.error("Error loading images:", error);
+                statusMessage.innerText = "तस्वीरें लोड करने में समस्या आई। कृपया दोबारा प्रयास करें।";
             }
         }
 
-        function displayImages(urls) {
+        // स्क्रीन पर फोटो सजाने और डाउनलोड/शेयर बटन सेट करने का फंक्शन
+        function displayImages(items) {
             gallery.innerHTML = '';
-            urls.forEach(url => {
+            
+            items.forEach(item => {
+                const imageUrl = item.largeImageURL || item.webformatURL;
                 const itemDiv = document.createElement('div');
                 itemDiv.className = "gallery-item relative overflow-hidden rounded-xl bg-gray-200 group cursor-pointer shadow-sm hover:shadow-xl transition-all duration-300";
                 
                 itemDiv.innerHTML = `
-                    <img src="${url}" alt="Live Image" class="w-full h-full object-cover rounded-xl group-hover:scale-105 transition-transform duration-500" onerror="this.parentElement.remove()">
+                    <img src="${item.webformatURL}" alt="PicWorld Image" class="w-full h-full object-cover rounded-xl group-hover:scale-105 transition-transform duration-500" loading="lazy">
+                    
                     <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-3 flex justify-between items-center opacity-100 sm:opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <a href="${url}" target="_blank" class="bg-white/20 hover:bg-white/40 text-white w-10 h-10 rounded-full flex items-center justify-center backdrop-blur-md transition shadow">
+                        
+                        <a href="${imageUrl}" target="_blank" class="bg-white/20 hover:bg-white/40 text-white w-10 h-10 rounded-full flex items-center justify-center backdrop-blur-md transition shadow" title="डाउनलोड करें">
                             <i class="fa-solid fa-arrow-down text-lg"></i>
                         </a>
-                        <button onclick="shareImage('${url}')" class="bg-white/20 hover:bg-white/40 text-white w-10 h-10 rounded-full flex items-center justify-center backdrop-blur-md transition shadow">
+                        
+                        <button onclick="shareImage('${imageUrl}')" class="bg-white/20 hover:bg-white/40 text-white w-10 h-10 rounded-full flex items-center justify-center backdrop-blur-md transition shadow" title="शेयर करें">
                             <i class="fa-solid fa-share-nodes text-lg"></i>
                         </button>
                     </div>
@@ -89,21 +107,31 @@
             });
         }
 
+        // शेयरिंग फंक्शन
         function shareImage(url) {
             if (navigator.share) {
-                navigator.share({ title: 'PicWorld Live Photo', url: url }).catch(console.error);
+                navigator.share({
+                    title: 'PicWorld HD वॉलपेपर',
+                    url: url
+                }).catch(console.error);
             } else {
-                window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(url)}`, '_blank');
+                window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent('PicWorld पर यह शानदार फोटो देखें: ' + url)}`, '_blank');
             }
         }
 
+        // सर्च करने पर एक्शन
         searchForm.addEventListener('submit', (e) => {
             e.preventDefault();
             const searchTerm = searchInput.value.trim();
-            if (searchTerm) myOwnSearchEngine(searchTerm);
+            if (searchTerm) {
+                loadImages(searchTerm);
+            }
         });
 
-        window.onload = () => { myOwnSearchEngine(); };
+        // पेज खुलते ही सबसे पहले फ्रंट पेज पर क्रिकेट की तस्वीरें सज जाएंगी
+        window.onload = () => {
+            loadImages('cricket match India');
+        };
     </script>
 </body>
 </html>
