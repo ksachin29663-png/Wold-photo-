@@ -49,15 +49,14 @@
         async function myOwnSearchEngine(query = 'Indian cricket team') {
             statusMessage.style.display = 'block';
             statusMessage.innerText = `"${query}" की लाइव तस्वीरें खोजी जा रही हैं...`;
+            gallery.innerHTML = '';
             
             try {
-                // यह आपकी खुद की बनाई हुई लोकल API (/api/search) को हिट करेगा
                 const response = await fetch(`/api/search?q=${encodeURIComponent(query)}`);
                 const data = await response.json();
                 
                 if (!data.results || data.results.length === 0) {
                     statusMessage.innerText = "कोई फोटो नहीं मिली। कुछ और सर्च करें!";
-                    gallery.innerHTML = '';
                     return;
                 }
 
@@ -65,7 +64,7 @@
                 displayImages(data.results);
             } catch (error) {
                 console.error(error);
-                statusMessage.innerText = "सर्वर कनेक्ट करने में समस्या। कृपया इसे Vercel पर होस्ट करें।";
+                statusMessage.innerText = "सर्वर कनेक्शन में थोड़ी दिक्कत है, दोबारा खोजें बटन दबाएं।";
             }
         }
 
@@ -76,7 +75,7 @@
                 itemDiv.className = "gallery-item relative overflow-hidden rounded-xl bg-gray-200 group cursor-pointer shadow-sm hover:shadow-xl transition-all duration-300";
                 
                 itemDiv.innerHTML = `
-                    <img src="${url}" alt="Live Image" class="w-full h-full object-cover rounded-xl group-hover:scale-105 transition-transform duration-500" onerror="this.parentElement.style.display='none'">
+                    <img src="${url}" alt="Live Image" class="w-full h-full object-cover rounded-xl group-hover:scale-105 transition-transform duration-500" onerror="this.parentElement.remove()">
                     <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-3 flex justify-between items-center opacity-100 sm:opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                         <a href="${url}" target="_blank" class="bg-white/20 hover:bg-white/40 text-white w-10 h-10 rounded-full flex items-center justify-center backdrop-blur-md transition shadow">
                             <i class="fa-solid fa-arrow-down text-lg"></i>
@@ -92,7 +91,7 @@
 
         function shareImage(url) {
             if (navigator.share) {
-                navigator.share({ title: 'PicWorld Photo', url: url }).catch(console.error);
+                navigator.share({ title: 'PicWorld Live Photo', url: url }).catch(console.error);
             } else {
                 window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(url)}`, '_blank');
             }
