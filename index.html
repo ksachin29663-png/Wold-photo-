@@ -122,6 +122,74 @@
         window.onload = () => {
             fetchImages('beautiful scenery');
         };
+                <script>
+        const gallery = document.getElementById('gallery');
+        const searchForm = document.getElementById('search-form');
+        const searchInput = document.getElementById('search-input');
+        const statusMessage = document.getElementById('status-message');
+
+        // Unsplash की पब्लिक डेमो की (Key)
+        const API_KEY = "8U2Zf4R86_6L_wH0zQ8wRdfpOnV48_Uun2K8M2x6-8g"; 
+
+        async function fetchImages(query = 'beautiful scenery') {
+            statusMessage.style.display = 'block';
+            statusMessage.innerText = `"${query}" की सुंदर तस्वीरें खोजी जा रही हैं...`;
+            
+            // सीधा Unsplash API को बिना किसी सर्वर के कॉल करना
+            const url = `https://api.unsplash.com/search/photos?page=1&query=${encodeURIComponent(query)}&per_page=30&client_id=${API_KEY}`;
+
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+                
+                if (!data.results || data.results.length === 0) {
+                    statusMessage.innerText = "कोई फोटो नहीं मिली। कुछ और लिखकर सर्च करें!";
+                    gallery.innerHTML = '';
+                    return;
+                }
+
+                statusMessage.style.display = 'none';
+                displayImages(data.results);
+            } catch (error) {
+                console.error("Error:", error);
+                statusMessage.innerText = "तस्वीरें लोड करने में समस्या आ रही है। कृपया इंटरनेट चेक करें।";
+            }
+        }
+
+        function displayImages(images) {
+            gallery.innerHTML = '';
+            images.forEach(img => {
+                const itemDiv = document.createElement('div');
+                itemDiv.className = "gallery-item relative overflow-hidden rounded-xl bg-gray-200 group cursor-pointer shadow-sm hover:shadow-xl transition-all duration-300";
+                
+                itemDiv.innerHTML = `
+                    <img src="${img.urls.regular}" alt="Image" class="w-full h-full object-cover rounded-xl group-hover:scale-105 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-black bg-opacity-30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-between p-4 text-white">
+                        <div class="flex justify-end">
+                            <button onclick="window.open('${img.links.html}', '_blank')" class="bg-red-600 text-white font-bold px-4 py-2 rounded-full text-sm hover:bg-red-700 shadow">Save</button>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <img src="${img.user.profile_image.small}" class="w-7 h-7 rounded-full border border-white">
+                            <p class="text-xs font-semibold truncate w-40">${img.user.name}</p>
+                        </div>
+                    </div>
+                `;
+                gallery.appendChild(itemDiv);
+            });
+        }
+
+        searchForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const searchTerm = searchInput.value.trim();
+            if (searchTerm) {
+                fetchImages(searchTerm);
+            }
+        });
+
+        // पहली बार वेबसाइट खुलने पर सुंदर तस्वीरें दिखेंगी
+        window.onload = () => {
+            fetchImages('beautiful aesthetic');
+        };
     </script>
 </body>
   </html>
