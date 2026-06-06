@@ -4,8 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PicWorld - अनलिमिटेड लाइव इमेज सर्च इंजन</title>
+    
+    <link rel="icon" type="image/png" href="https://img.icons8.com/?size=96&id=87532&format=png">
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
         /* यूट्यूब वीडियो (16:9) स्टाइल कार्ड्स */
         .youtube-card {
@@ -40,13 +44,12 @@
             <div class="pl-3 text-gray-400">
                 <i class="fa-solid fa-magnifying-glass"></i>
             </div>
-            <input type="text" id="search-input" placeholder="क्रिकेट, सूर्या, धोनी, वॉलपेपर... कुछ भी खोजें, यहाँ सब मिलेगा" class="w-full bg-transparent outline-none px-3 text-sm text-gray-700 font-medium">
+            <input type="text" id="search-input" placeholder="क्रिकेट, सूर्या, धोनी, वॉलपेपर... यहाँ सब मिलेगा" class="w-full bg-transparent outline-none px-3 text-sm text-gray-700 font-medium">
             <button type="submit" class="bg-red-600 text-white px-5 py-1.5 rounded-full text-sm font-bold shadow hover:bg-red-700 transition active:scale-95">खोजें</button>
         </form>
     </header>
 
     <main class="max-w-7xl mx-auto p-4 flex-grow w-full">
-        
         <div class="flex flex-wrap gap-2 mb-4 justify-center sm:justify-start items-center">
             <button onclick="quickSearch('Cricket Match')" class="bg-white hover:bg-red-50 text-gray-700 border border-gray-200 rounded-full px-4 py-1 text-xs font-semibold transition shadow-sm">🏏 क्रिकेट</button>
             <button onclick="quickSearch('Suryakumar Yadav')" class="bg-white hover:bg-red-50 text-gray-700 border border-gray-200 rounded-full px-4 py-1 text-xs font-semibold transition shadow-sm">🔥 सूर्या</button>
@@ -80,44 +83,30 @@
     </footer>
 
     <div id="blog-modal" class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 hidden backdrop-blur-sm">
-        <div class="bg-white rounded-2xl max-w-2xl w-full max-h-[80vh] overflow-y-auto p-6 relative shadow-2xl">
+        <div class="bg-white rounded-2xl max-w-2xl w-full p-6 relative shadow-2xl overflow-y-auto max-h-[80vh]">
             <button onclick="closeModal('blog-modal')" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-xl"><i class="fa-solid fa-xmark"></i></button>
             <span class="bg-red-100 text-red-700 text-[10px] font-bold px-2.5 py-1 rounded-full uppercase">ट्रेंडिंग पोस्ट</span>
             <h2 class="text-xl font-black mt-2 text-gray-900">क्रिकेट रिकॉर्ड्स 2026: इस साल किसने बनाए सबसे ज़्यादा रन?</h2>
-            <p class="text-xs text-gray-400 mt-1">प्रकाशित: जून 2026 | लेखक: PicWorld टीम</p>
             <hr class="my-4 border-gray-100">
-            <div class="text-gray-700 space-y-3 text-sm leading-relaxed">
-                <p>नमस्कार दोस्तों! <b>PicWorld</b> के पहले आधिकारिक ब्लॉग पोस्ट में आपका स्वागत है। आज हम बात करने वाले हैं साल 2026 के सबसे बड़े क्रिकेट रिकॉर्ड्स के बारे में।</p>
-                <p>भारतीय क्रिकेट टीम में युवा सितारों का बोलबाला है। जब से <b>सूर्यकुमार यादव (SKY)</b> ने टीम की कमान संभाली है, तब से टीम का खेलने का अंदाज़ पूरी तरह बदल चुका है। टी20 और वनडे में टीम इंडिया लगातार नए कीर्真मान स्थापित कर रही है।</p>
-                <p>हमारी वेबसाइट पर आपको क्रिकेट से जुड़ी ऐसी ही बेहतरीन HD तस्वीरें और वॉलपेपर बिल्कुल मुफ़्त में डाउनलोड करने को मिलते रहेंगे। अगर आपको यह जानकारी अच्छी लगी, तो अपने दोस्तों के साथ ज़रूर शेयर करें!</p>
-            </div>
+            <p class="text-sm text-gray-700 leading-relaxed">नमस्कार दोस्तों! PicWorld पर आपका स्वागत है। यहाँ आपको कप्तान सूर्यकुमार यादव की अगुवाई वाली भारतीय क्रिकेट टीम की बेहतरीन HD तस्वीरें और लाइव मैच अपडेट्स से जुड़े वॉलपेपर्स बिल्कुल मुफ्त मिलेंगे।</p>
         </div>
     </div>
 
     <div id="privacy-modal" class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 hidden backdrop-blur-sm">
-        <div class="bg-white rounded-2xl max-w-2xl w-full max-h-[80vh] overflow-y-auto p-6 relative shadow-2xl">
+        <div class="bg-white rounded-2xl max-w-2xl w-full p-6 relative shadow-2xl">
             <button onclick="closeModal('privacy-modal')" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-xl"><i class="fa-solid fa-xmark"></i></button>
-            <h2 class="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2"><i class="fa-solid fa-user-shield text-red-600"></i> प्राइवेसी पॉलिसी (Privacy Policy)</h2>
-            <div class="text-gray-600 space-y-3 text-xs leading-relaxed">
-                <p>PicWorld में, हमारे विज़िटर्स की प्राइवेसी हमारे लिए बेहद महत्वपूर्ण है। यह प्राइवेसी पॉलिसी दस्तावेज़ उन प्रकार की व्यक्तिगत जानकारी को रेखांकित करता है जो हमारी वेबसाइट द्वारा एकत्र की जाती है।</p>
-                <p><b>लॉग फ़ाइलें:</b> अन्य वेबसाइटों की तरह, हम भी लॉग फ़ाइलों का उपयोग करते हैं। इन फ़ाइलों के भीतर की जानकारी में इंटरनेट प्रोटोकॉल (IP) पते, ब्राउज़र का प्रकार, इंटरनेट सेवा प्रदाता (ISP) शामिल हैं। यह जानकारी किसी भी ऐसी जानकारी से लिंक नहीं है जो व्यक्तिगत रूप से पहचान योग्य हो।</p>
-                <p><b>गूगल एडसेंस कुकीज़:</b> गूगल, एक तृतीय पक्ष विक्रेता के रूप में, इस साइट पर विज्ञापन देने के लिए कुकीज़ का उपयोग कर सकता है। उपयोगकर्ता हमारी वेबसाइट पर आकर सुरक्षित रूप से मुफ्त इमेज डाउनलोडिंग का आनंद ले सकते हैं।</p>
-            </div>
+            <h2 class="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2"><i class="fa-solid fa-user-shield text-red-600"></i> प्राइवेसी पॉलिसी</h2>
+            <p class="text-xs text-gray-600 leading-relaxed">हम विज़िटर्स की प्राइवेसी का ध्यान रखते हैं। साइट कुकीज़ का उपयोग विज्ञापनों और बेहतर यूज़र एक्सपीरियंस के लिए करती है।</p>
         </div>
     </div>
 
     <div id="terms-modal" class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 hidden backdrop-blur-sm">
-        <div class="bg-white rounded-2xl max-w-2xl w-full max-h-[80vh] overflow-y-auto p-6 relative shadow-2xl">
+        <div class="bg-white rounded-2xl max-w-2xl w-full p-6 relative shadow-2xl">
             <button onclick="closeModal('terms-modal')" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-xl"><i class="fa-solid fa-xmark"></i></button>
-            <h2 class="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2"><i class="fa-solid fa-file-contract text-red-600"></i> नियम और शर्तें (Terms of Service)</h2>
-            <div class="text-gray-600 space-y-3 text-xs leading-relaxed">
-                <p>PicWorld वेबसाइट पर आपका स्वागत है। यदि आप इस वेबसाइट को ब्राउज़ और उपयोग करना जारी रखते हैं, तो आप निम्नलिखित नियमों और शर्तों का पालन करने के लिए सहमत हो रहे हैं।</p>
-                <p><b>सामग्री का उपयोग:</b> इस वेबसाइट पर दी गई सभी तस्वीरें सार्वजनिक डोमेन और मुफ़्त स्रोतों से ली गई हैं। आप इनका उपयोग अपने निजी वॉलपेपर या शेयरिंग के लिए कर सकते हैं।</p>
-                <p><b>अस्वीकरण:</b> इस वेबसाइट की सामग्री केवल सामान्य जानकारी और मनोरंजन के उद्देश्य के लिए है। हम बिना किसी पूर्व सूचना के इस वेबसाइट के सिस्टम में बदलाव करने का अधिकार सुरक्षित रखते हैं।</p>
-            </div>
+            <h2 class="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2"><i class="fa-solid fa-file-contract text-red-600"></i> नियम और शर्तें</h2>
+            <p class="text-xs text-gray-600 leading-relaxed">इस वेबसाइट पर उपलब्ध सभी इमेजेस मुफ्त स्रोतों से ली गई हैं। आप इनका निजी उपयोग के लिए बेझिझक कर सकते हैं।</p>
         </div>
     </div>
-
 
     <script>
         const gallery = document.getElementById('gallery');
@@ -128,7 +117,6 @@
         let currentQuery = 'Cricket Match';
         let pageOffset = 0;
 
-        // हाई-स्पीड सर्वर-लेस इमेज फ़ेचर सिस्टम (गिटहब पेजेस के लिए 100% वर्किंग)
         function fetchLiveImages(query, isLoadMore = false) {
             if (!isLoadMore) {
                 statusMessage.classList.remove('hidden');
@@ -138,11 +126,11 @@
             
             currentQuery = query;
             const images = [];
-            const count = 24; // एक बार में 24 परफेक्ट तस्वीरें लोड होंगी
+            const count = 24;
 
             for (let i = 1; i <= count; i++) {
                 const randomId = Math.floor(Math.random() * 2000) + pageOffset + i;
-                // बिना किसी API Key के सीधे हाई-क्वालिटी इमेज देने वाला सिस्टम
+                // बिना सर्वर के डायरेक्ट इमेज लोड होने वाला सिस्टम (जो पहले से काम कर रहा है)
                 images.push(`https://picsum.photos/1920/1080?random=${randomId}`);
             }
 
@@ -151,7 +139,6 @@
             statusMessage.classList.add('hidden');
         }
 
-        // इमेजेस को कार्ड्स में रेंडर करने का लॉजिक
         function displayImages(urls, isLoadMore) {
             if (!isLoadMore) gallery.innerHTML = '';
             
@@ -162,13 +149,11 @@
                 cardWrapper.innerHTML = `
                     <div class="youtube-card">
                         <img src="${url}" alt="PicWorld Result" loading="lazy">
-                        
                         <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent flex flex-col justify-end p-3 opacity-100 sm:opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                             <div class="flex justify-between items-center">
                                 <a href="${url}" target="_blank" class="bg-white text-gray-950 px-3 py-1.5 rounded-lg flex items-center gap-1.5 font-bold text-xs shadow transition active:scale-95">
                                     <i class="fa-solid fa-arrow-down text-red-600"></i> डाउनलोड
                                 </a>
-                                
                                 <button onclick="shareImage('${url}')" class="bg-red-600 text-white w-8 h-8 rounded-lg flex items-center justify-center shadow transition active:scale-95">
                                     <i class="fa-solid fa-share-nodes text-xs"></i>
                                 </button>
@@ -180,49 +165,19 @@
             });
         }
 
-        // अनलिमिटेड लोड मोर बटन का काम
-        function loadMoreImages() { 
-            fetchLiveImages(currentQuery, true); 
-        }
-
-        // व्हाट्सएप शेयर सिस्टम (जो पहले था)
+        // अनलिमिटेड लोड मोर, व्हाट्सएप शेयर, पॉप-अप्स लॉजिक (जो पहले से थे)
+        function loadMoreImages() { fetchLiveImages(currentQuery, true); }
         function shareImage(url) {
-            if (navigator.share) { 
-                navigator.share({ title: 'PicWorld Image', url: url }).catch(console.error); 
-            } else { 
-                window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent('PicWorld पर यह कमाल की फोटो देखो: ' + url)}`, '_blank'); 
-            }
+            if (navigator.share) { navigator.share({ title: 'PicWorld Image', url: url }).catch(console.error); }
+            else { window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent('PicWorld पर यह फोटो देखो: ' + url)}`, '_blank'); }
         }
+        function quickSearch(tag) { searchInput.value = tag; fetchLiveImages(tag); }
+        searchForm.addEventListener('submit', (e) => { e.preventDefault(); const val = searchInput.value.trim(); if (val) fetchLiveImages(val); });
+        function openModal(id) { document.getElementById(id).classList.remove('hidden'); document.body.style.overflow = 'hidden'; }
+        function closeModal(id) { document.getElementById(id).classList.add('hidden'); document.body.style.overflow = 'auto'; }
 
-        // क्विक सर्च टैग्स लॉजिक
-        function quickSearch(tag) { 
-            searchInput.value = tag; 
-            fetchLiveImages(tag); 
-        }
-
-        // सर्च फॉर्म सबमिट लॉजिक
-        searchForm.addEventListener('submit', (e) => { 
-            e.preventDefault(); 
-            const val = searchInput.value.trim(); 
-            if (val) fetchLiveImages(val); 
-        });
-
-        // पॉप-अप खोलने और बंद करने का लॉजिक (Modals)
-        function openModal(id) { 
-            document.getElementById(id).classList.remove('hidden'); 
-            document.body.style.overflow = 'hidden'; 
-        }
-        
-        function closeModal(id) { 
-            document.getElementById(id).classList.add('hidden'); 
-            document.body.style.overflow = 'auto'; 
-        }
-
-        // पहली बार पेज ओपन होने पर क्रिकेट की तस्वीरें दिखेंगी
-        window.onload = () => { 
-            fetchLiveImages('Cricket Match'); 
-        };
+        window.onload = () => { fetchLiveImages('Cricket Match'); };
     </script>
 </body>
-                </html>
-                
+            </html>
+            
