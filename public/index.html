@@ -1,1 +1,101 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>सुंदर फोटो गैलरी - Pinterest जैसी</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            grid-auto-rows: 10px;
+            gap: 15px;
+        }
+        .gallery-item { grid-row-end: span 26; break-inside: avoid; }
+        .gallery-item:nth-child(2n) { grid-row-end: span 35; }
+        .gallery-item:nth-child(3n) { grid-row-end: span 42; }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+
+    <header class="sticky top-0 bg-white shadow-sm z-50 py-4 px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div class="flex items-center gap-2">
+            <div class="bg-red-600 text-white p-2 rounded-full font-bold text-xl w-10 h-10 flex items-center justify-center shadow-md">P</div>
+            <h1 class="text-xl font-bold text-gray-800 tracking-wide">PicWorld</h1>
+        </div>
+        
+        <form id="search-form" class="w-full sm:w-1/2 flex items-center bg-gray-100 p-2 rounded-full border border-transparent focus-within:border-gray-300 focus-within:bg-white transition-all">
+            <input type="text" id="search-input" placeholder="दुनिया की सुंदर फोटो सर्च करें..." class="w-full bg-transparent outline-none px-2 text-gray-700">
+            <button type="submit" class="bg-red-600 text-white px-6 py-1.5 rounded-full font-medium hover:bg-red-700 transition">खोजें</button>
+        </form>
+        <div class="hidden sm:block text-sm text-gray-500 font-medium">ट्रेडिंग: <span class="text-red-500">Nature</span></div>
+    </header>
+
+    <main class="max-w-7xl mx-auto p-6">
+        <div id="status-message" class="text-center text-gray-500 my-8 text-lg font-medium">लोड हो रहा है...</div>
+        <div id="gallery" class="gallery-grid"></div>
+    </main>
+
+    <script>
+        const gallery = document.getElementById('gallery');
+        const searchForm = document.getElementById('search-form');
+        const searchInput = document.getElementById('search-input');
+        const statusMessage = document.getElementById('status-message');
+
+        // अपने खुद के Node.js सर्वर से डेटा मंगाना
+        async function fetchImages(query = 'beautiful scenery') {
+            statusMessage.style.display = 'block';
+            statusMessage.innerText = `"${query}" की सुंदर तस्वीरें खोजी जा रही हैं...`;
+            
+            try {
+                // यह आपके लोकल सर्वर /api/search को हिट करेगा
+                const response = await fetch(`/api/search?q=${encodeURIComponent(query)}`);
+                const data = await response.json();
+                
+                if (!data.results || data.results.length === 0) {
+                    statusMessage.innerText = "कोई फोटो नहीं मिली। कुछ और सर्च करें!";
+                    gallery.innerHTML = '';
+                    return;
+                }
+
+                statusMessage.style.display = 'none';
+                displayImages(data.results);
+            } catch (error) {
+                console.error(error);
+                statusMessage.innerText = "सर्वर से कनेक्ट करने में समस्या आ रही है।";
+            }
+        }
+
+        function displayImages(images) {
+            gallery.innerHTML = '';
+            images.forEach(img => {
+                const itemDiv = document.createElement('div');
+                itemDiv.className = "gallery-item relative overflow-hidden rounded-xl bg-gray-200 group cursor-pointer shadow-sm hover:shadow-xl transition-all duration-300";
+                itemDiv.innerHTML = `
+                    <img src="${img.urls.regular}" alt="Image" class="w-full h-full object-cover rounded-xl group-hover:scale-105 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-black bg-opacity-30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-between p-4 text-white">
+                        <div class="flex justify-end">
+                            <button onclick="window.open('${img.links.html}', '_blank')" class="bg-red-600 text-white font-bold px-4 py-2 rounded-full text-sm hover:bg-red-700 shadow">Save</button>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <img src="${img.user.profile_image.small}" class="w-7 h-7 rounded-full border border-white">
+                            <p class="text-xs font-semibold truncate w-40">${img.user.name}</p>
+                        </div>
+                    </div>
+                `;
+                gallery.appendChild(itemDiv);
+            });
+        }
+
+        searchForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const searchTerm = searchInput.value.trim();
+            if (searchTerm) fetchImages(searchTerm);
+        });
+
+        window.onload = () => { fetchImages(); };
+    </script>
+</body>
+</html>
 
