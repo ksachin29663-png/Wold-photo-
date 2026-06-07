@@ -9,8 +9,7 @@
     
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3019468976412219" crossorigin="anonymous"></script>
     
-    <link rel="icon" type="image/png" href="https://img.icons8.com/?size=96&id=87532&format=png">
-    
+    <link class="rounded-full" rel="icon" type="image/png" href="https://img.icons8.com/?size=96&id=87532&format=png">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -24,213 +23,199 @@
         .youtube-card {
             position: relative;
             width: 100%;
-            padding-top: 56.25%; /* Perfect 16:9 YouTube Video Ratio */
+            padding-top: 56.25%; /* 16:9 Ratio */
             overflow: hidden;
             border-radius: 12px;
         }
         .youtube-card img {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+            top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;
         }
-        .modal-scroll::-webkit-scrollbar {
-            width: 6px;
-        }
-        .modal-scroll::-webkit-scrollbar-thumb {
-            background-color: #ef4444;
-            border-radius: 10px;
-        }
-        .modal-scroll::-webkit-scrollbar-track {
-            background-color: #f1f5f9;
-        }
-        /* Quill Editor Content Links & Typography Styling */
-        .ql-editor {
-            font-size: 14px;
-            line-height: 1.6;
-            color: #030712;
-            min-height: 200px;
-        }
-        .blog-html-content h1 { font-size: 1.5rem; font-weight: 900; margin-top: 1rem; margin-bottom: 0.5rem; color: #111827; }
-        .blog-html-content h2 { font-size: 1.25rem; font-weight: 800; margin-top: 1rem; margin-bottom: 0.5rem; color: #1f2937; }
-        .blog-html-content h3 { font-size: 1.125rem; font-weight: 700; margin-top: 1rem; margin-bottom: 0.5rem; color: #374151; }
-        .blog-html-content p { margin-bottom: 1rem; }
-        .blog-html-content a { color: #ef4444; font-weight: bold; text-decoration: underline; transition: color 0.2s; }
-        .blog-html-content a:hover { color: #b91c1c; }
+        .modal-scroll::-webkit-scrollbar { width: 6px; }
+        .modal-scroll::-webkit-scrollbar-thumb { background-color: #ef4444; border-radius: 10px; }
+        .blog-html-content a { color: #ef4444; font-weight: bold; text-decoration: underline; }
     </style>
 </head>
 <body class="bg-gray-50 font-sans text-gray-950 flex flex-col min-h-screen">
 
-    <header class="sticky top-0 bg-white/95 backdrop-blur-md shadow-sm z-40 py-3 px-4 flex flex-col sm:flex-row items-center justify-between gap-4 border-b border-gray-200">
-        <div class="flex items-center gap-2 cursor-pointer" onclick="location.reload()">
-            <div class="bg-red-600 text-white p-2 rounded-xl font-black text-xl w-10 h-10 flex items-center justify-center shadow">P</div>
-            <div>
-                <h1 class="text-lg font-black tracking-tight text-red-600">PicWorld</h1>
-                <p class="text-[9px] text-gray-400 font-bold uppercase tracking-wider">गूगल लाइव इमेज सर्च</p>
+    <header class="sticky top-0 bg-white/95 backdrop-blur-md shadow-sm z-40 py-3 px-4 flex flex-col gap-3 border-b border-gray-200">
+        <div class="w-full flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-2 cursor-pointer" onclick="showPage('photos')">
+                <div class="bg-red-600 text-white p-2 rounded-xl font-black text-xl w-10 h-10 flex items-center justify-center shadow">P</div>
+                <div>
+                    <h1 class="text-lg font-black tracking-tight text-red-600">PicWorld</h1>
+                    <p class="text-[9px] text-gray-400 font-bold uppercase tracking-wider">गूगल लाइव इमेज सर्च</p>
+                </div>
             </div>
+            
+            <form id="search-form" class="w-full sm:w-6/12 flex items-center bg-gray-100 p-2 rounded-full border border-gray-300 focus-within:border-red-500 focus-within:bg-white transition-all shadow-inner">
+                <div class="pl-3 text-gray-400"><i class="fa-solid fa-magnifying-glass"></i></div>
+                <input type="text" id="search-input" placeholder="क्रिकेट, सूर्या, धोनी, वॉलपेपर... यहाँ सब मिलेगा" class="w-full bg-transparent outline-none px-3 text-sm text-gray-700 font-medium">
+                <button type="submit" class="bg-red-600 text-white px-5 py-1.5 rounded-full text-sm font-bold shadow hover:bg-red-700 transition">खोजें</button>
+            </form>
+
+            <button type="button" onclick="showPage('blogs')" class="w-full sm:w-auto bg-gradient-to-r from-red-600 to-orange-500 text-white text-xs font-black py-2.5 px-4 rounded-full shadow-md hover:from-red-700 hover:to-orange-600 transition animate-pulse flex items-center justify-center gap-1.5">
+                <i class="fa-solid fa-globe"></i> हमारी वेबसाइट, ब्लॉग और दुनिया के बारे में जानें तो यहाँ क्लिक करें
+            </button>
         </div>
-        
-        <form id="search-form" class="w-full sm:w-8/12 flex items-center bg-gray-100 p-2 rounded-full border border-gray-300 focus-within:border-red-500 focus-within:bg-white transition-all shadow-inner">
-            <div class="pl-3 text-gray-400">
-                <i class="fa-solid fa-magnifying-glass"></i>
-            </div>
-            <input type="text" id="search-input" placeholder="क्रिकेट, सूर्या, धोनी, वॉलपेपर... यहाँ सब मिलेगा" class="w-full bg-transparent outline-none px-3 text-sm text-gray-700 font-medium">
-            <button type="submit" class="bg-red-600 text-white px-5 py-1.5 rounded-full text-sm font-bold shadow hover:bg-red-700 transition active:scale-95">खोजें</button>
-        </form>
     </header>
 
     <main class="max-w-7xl mx-auto p-4 flex-grow w-full">
-        <div class="flex flex-wrap gap-2 mb-4 justify-center sm:justify-start items-center">
-            <button type="button" onclick="quickSearch('Cricket Match')" class="bg-white hover:bg-red-50 text-gray-700 border border-gray-200 rounded-full px-4 py-1 text-xs font-semibold transition shadow-sm">🏏 क्रिकेट</button>
-            <button type="button" onclick="quickSearch('Suryakumar Yadav')" class="bg-white hover:bg-red-50 text-gray-700 border border-gray-200 rounded-full px-4 py-1 text-xs font-semibold transition shadow-sm">🔥 सूर्या</button>
-            <button type="button" onclick="quickSearch('Nature 4K Wallpaper')" class="bg-white hover:bg-red-50 text-gray-700 border border-gray-200 rounded-full px-4 py-1 text-xs font-semibold transition shadow-sm">🌿 प्रकृति</button>
-            <button type="button" onclick="quickSearch('Supercar')" class="bg-white hover:bg-red-50 text-gray-700 border border-gray-200 rounded-full px-4 py-1 text-xs font-semibold transition shadow-sm">🏎️ कारें</button>
-        </div>
-
-        <div id="status-message" class="text-center text-gray-500 my-12 text-sm font-semibold hidden">
-            <div class="inline-block w-5 h-5 border-2 border-red-600 border-t-transparent rounded-full animate-spin mr-2"></div>
-            गूगल से बेहतरीन तस्वीरें निकाली जा रही हैं...
-        </div>
         
-        <div id="gallery" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"></div>
+        <div id="photo-page-section">
+            <div class="flex flex-wrap gap-2 mb-4 justify-center sm:justify-start items-center">
+                <button type="button" onclick="quickSearch('Cricket Match')" class="bg-white hover:bg-red-50 text-gray-700 border border-gray-200 rounded-full px-4 py-1 text-xs font-semibold transition shadow-sm">🏏 क्रिकेट</button>
+                <button type="button" onclick="quickSearch('Suryakumar Yadav')" class="bg-white hover:bg-red-50 text-gray-700 border border-gray-200 rounded-full px-4 py-1 text-xs font-semibold transition shadow-sm">🔥 सूर्या</button>
+                <button type="button" onclick="quickSearch('Nature 4K Wallpaper')" class="bg-white hover:bg-red-50 text-gray-700 border border-gray-200 rounded-full px-4 py-1 text-xs font-semibold transition shadow-sm">🌿 प्रकृति</button>
+                <button type="button" onclick="quickSearch('Supercar')" class="bg-white hover:bg-red-50 text-gray-700 border border-gray-200 rounded-full px-4 py-1 text-xs font-semibold transition shadow-sm">🏎️ कारें</button>
+            </div>
 
-        <div class="text-center my-10 border-b border-gray-200 pb-10">
-            <button id="load-more-btn" type="button" onclick="loadMoreImages()" class="bg-white hover:bg-gray-100 text-gray-800 font-bold py-2.5 px-6 border border-gray-300 rounded-full shadow-sm transition inline-flex items-center gap-2 text-sm active:scale-95">
-                <i class="fa-solid fa-circle-arrow-down text-red-600"></i> और फोटो लोड करें (अनलिमिटेड)
-            </button>
+            <div id="status-message" class="text-center text-gray-500 my-6 text-sm font-semibold hidden">
+                <div class="inline-block w-5 h-5 border-2 border-red-600 border-t-transparent rounded-full animate-spin mr-2"></div>
+                लाइव तस्वीरें निकाली जा रही हैं...
+            </div>
+            
+            <div id="gallery" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 min-h-[200px]"></div>
+
+            <div class="text-center my-10">
+                <button id="load-more-btn" type="button" onclick="loadMoreImages()" class="bg-white hover:bg-gray-100 text-gray-800 font-bold py-2.5 px-6 border border-gray-300 rounded-full shadow-sm transition inline-flex items-center gap-2 text-sm">
+                    <i class="fa-solid fa-circle-arrow-down text-red-600"></i> और फोटो लोड करें (अनलिमिटेड)
+                </button>
+            </div>
         </div>
 
-        <section class="my-10 max-w-5xl mx-auto">
+        <div id="blog-page-section" class="hidden max-w-5xl mx-auto py-4">
+            <button onclick="showPage('photos')" class="mb-6 bg-gray-200 text-gray-800 text-xs font-bold py-2 px-4 rounded-lg hover:bg-gray-300 transition flex items-center gap-1.5">
+                <i class="fa-solid fa-arrow-left"></i> ← फोटो गैलरी पर वापस जाएं
+            </button>
+
             <div class="flex items-center gap-2 mb-6">
-                <div class="w-2 h-6 bg-red-600 rounded"></div>
-                <h2 class="text-xl font-black text-gray-900 tracking-tight">PicWorld ताज़ा ख़बरें और ट्रेंडिंग ब्लॉग्स</h2>
+                <div class="w-2.5 h-7 bg-red-600 rounded"></div>
+                <h2 class="text-2xl font-black text-gray-900 tracking-tight">PicWorld विशेष समाचार और दुनिया की जानकारी</h2>
             </div>
 
             <div id="blog-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div id="blog-loading" class="text-center py-6 text-sm font-bold text-gray-500 col-span-full">
-                    फ़ायरबेस सर्वर से ताज़ा ब्लॉग्स लोड किए जा रहे हैं...
+                    सर्वर से ताज़ा ब्लॉग्स लोड किए जा रहे हैं...
                 </div>
             </div>
-        </section>
+        </div>
+
+        <div class="text-center my-12 border-t pt-8">
+            <button type="button" onclick="showPage('blogs')" class="bg-gradient-to-r from-orange-500 to-red-600 text-white text-sm font-black py-3 px-8 rounded-full shadow-lg hover:from-orange-600 hover:to-red-700 transition flex items-center gap-2 mx-auto">
+                <i class="fa-solid fa-earth-asia"></i> हमारी वेबसाइट, ब्लॉग और दुनिया के बारे में जानें तो यहाँ क्लिक करें
+            </button>
+        </div>
+
     </main>
 
-    <footer class="bg-white border-t border-gray-200 mt-12 py-8 text-center text-xs text-gray-500">
+    <footer class="bg-white border-t border-gray-200 py-8 text-center text-xs text-gray-500">
         <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-6">
             <div class="text-center md:text-left">
                 <p onclick="checkAdminAccess()" class="font-bold text-gray-700 text-sm mb-1 cursor-pointer hover:text-red-600 transition">PicWorld Network 🔒</p>
                 <p>© 2026 photoworld.online. सर्वाधिकार सुरक्षित।</p>
             </div>
-            <div class="flex flex-wrap justify-center gap-x-6 gap-y-3 font-bold text-gray-600 text-sm">
-                <button type="button" onclick="openModal('about-modal')" class="hover:text-red-600 transition">ℹ️ About Us</button>
-                <button type="button" onclick="openModal('contact-modal')" class="hover:text-red-600 transition">📞 Contact Us</button>
-                <button type="button" onclick="openModal('disclaimer-modal')" class="hover:text-red-600 transition">⚠️ Disclaimer</button>
-                <button type="button" onclick="openModal('privacy-modal')" class="hover:text-red-600 transition">🔒 Privacy Policy</button>
-                <button type="button" onclick="openModal('terms-modal')" class="hover:text-red-600 transition">📝 Terms & Conditions</button>
+            <div class="flex flex-wrap justify-center gap-4 font-bold text-gray-600 text-sm">
+                <button type="button" onclick="openModal('about-modal')" class="hover:text-red-600">ℹ️ About Us</button>
+                <button type="button" onclick="openModal('contact-modal')" class="hover:text-red-600">📞 Contact Us</button>
+                <button type="button" onclick="openModal('disclaimer-modal')" class="hover:text-red-600">⚠️ Disclaimer</button>
+                <button type="button" onclick="openModal('privacy-modal')" class="hover:text-red-600">🔒 Privacy Policy</button>
+                <button type="button" onclick="openModal('terms-modal')" class="hover:text-red-600">📝 Terms & Conditions</button>
             </div>
         </div>
     </footer>
 
     <div id="blog-modal" class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-2 hidden backdrop-blur-sm">
-        <div class="bg-white rounded-2xl max-w-xl w-full relative shadow-2xl overflow-hidden max-h-[92vh] flex flex-col text-left animate-fade-in">
+        <div class="bg-white rounded-2xl max-w-xl w-full relative shadow-2xl overflow-hidden max-h-[92vh] flex flex-col text-left">
+            <button type="button" onclick="closeBlogModal()" class="absolute top-3 right-3 text-white bg-black/50 hover:bg-black/80 text-xl z-20 rounded-full w-8 h-8 flex items-center justify-center"><i class="fa-solid fa-xmark"></i></button>
             
-            <button type="button" onclick="closeBlogModal()" class="absolute top-3 right-3 text-white bg-black/50 hover:bg-black/80 text-xl z-20 rounded-full w-8 h-8 flex items-center justify-center transition"><i class="fa-solid fa-xmark"></i></button>
-            
-            <div class="youtube-card flex-shrink-0 rounded-t-2xl border-b border-gray-100">
-                <img id="modal-blog-image" src="" alt="Main Banner">
+            <div class="youtube-card flex-shrink-0">
+                <img id="modal-blog-image" src="" alt="Banner">
             </div>
 
             <div class="p-4 overflow-y-auto modal-scroll flex-grow space-y-4">
-                
                 <div class="flex items-center justify-between text-[11px] font-bold text-gray-400">
-                    <span id="modal-blog-tag" class="bg-red-50 text-red-600 uppercase tracking-wider px-2 py-0.5 rounded-md"></span>
-                    <span id="modal-blog-date"><i class="fa-solid fa-calendar-day mr-1"></i></span>
+                    <span id="modal-blog-tag" class="bg-red-50 text-red-600 px-2 py-0.5 rounded-md"></span>
+                    <span id="modal-blog-date"></span>
                 </div>
 
-                <h2 id="modal-blog-title" class="text-base font-black text-gray-900 tracking-tight leading-snug"></h2>
+                <h2 id="modal-blog-title" class="text-base font-black text-gray-900 leading-snug"></h2>
 
-                <div class="flex items-center justify-between bg-gray-50 p-2 rounded-xl border border-gray-100 text-xs font-bold text-gray-700">
-                    <button type="button" id="modal-like-btn" class="flex flex-col items-center gap-1 flex-1 py-1 hover:text-red-600 transition border-r border-gray-200">
-                        <i class="fa-solid fa-heart text-base text-red-500 animate-pulse"></i>
+                <div class="flex items-center justify-between bg-gray-50 p-2 rounded-xl border text-xs font-bold text-gray-700">
+                    <button type="button" id="modal-like-btn" class="flex flex-col items-center gap-1 flex-1 py-1 text-center border-r">
+                        <i class="fa-solid fa-heart text-red-500"></i>
                         <span><span id="modal-likes-count">0</span> लाइक्स</span>
                     </button>
-                    <a href="#comment-anchor" class="flex flex-col items-center gap-1 flex-1 py-1 hover:text-blue-600 transition border-r border-gray-200 text-center">
-                        <i class="fa-solid fa-comment text-base text-blue-500"></i>
+                    <a href="#comment-anchor" class="flex flex-col items-center gap-1 flex-1 py-1 text-center border-r">
+                        <i class="fa-solid fa-comment text-blue-500"></i>
                         <span>कमेंट करें</span>
                     </a>
-                    <button type="button" id="modal-share-btn" class="flex flex-col items-center gap-1 flex-1 py-1 hover:text-green-600 transition border-r border-gray-200">
-                        <i class="fa-brands fa-whatsapp text-base text-green-500"></i>
+                    <button type="button" id="modal-share-btn" class="flex flex-col items-center gap-1 flex-1 py-1 text-center border-r">
+                        <i class="fa-brands fa-whatsapp text-green-500"></i>
                         <span>शेयर</span>
                     </button>
-                    <button type="button" id="modal-save-btn" onclick="toggleSavePost()" class="flex flex-col items-center gap-1 flex-1 py-1 hover:text-yellow-600 transition">
-                        <i id="save-icon" class="fa-regular fa-bookmark text-base text-gray-500"></i>
+                    <button type="button" id="modal-save-btn" onclick="toggleSavePost()" class="flex flex-col items-center gap-1 flex-1 py-1 text-center">
+                        <i id="save-icon" class="fa-regular fa-bookmark"></i>
                         <span id="save-text">सेव करें</span>
                     </button>
                 </div>
 
-                <div id="modal-blog-text" class="blog-html-content text-sm text-gray-800 leading-relaxed border-t border-gray-100 pt-3"></div>
+                <div id="modal-blog-text" class="blog-html-content text-sm text-gray-800 leading-relaxed pt-2"></div>
                 
-                <div id="comment-anchor" class="border-t border-gray-200 pt-4">
-                    <h4 class="text-xs font-black text-gray-900 mb-2 uppercase tracking-wide flex items-center gap-1"><i class="fa-solid fa-comments text-red-600"></i> यूज़र्स की राय (कमेंट्स)</h4>
-                    
-                    <div class="bg-gray-50 p-3 rounded-xl max-h-40 overflow-y-auto modal-scroll space-y-2 mb-3 border border-gray-100" id="modal-comments-list"></div>
+                <div id="comment-anchor" class="border-t pt-4">
+                    <h4 class="text-xs font-black text-gray-900 mb-2">💬 कमेंट्स</h4>
+                    <div class="bg-gray-50 p-3 rounded-xl max-h-40 overflow-y-auto modal-scroll space-y-2 mb-3 border" id="modal-comments-list"></div>
 
-                    <form id="comment-form" class="flex gap-1.5">
-                        <input type="text" id="comment-user" required placeholder="आपका नाम" class="w-1/3 p-2 text-xs bg-white border border-gray-300 rounded-lg outline-none focus:border-red-500 font-medium">
-                        <input type="text" id="comment-msg" required placeholder="कमेंट लिखें..." class="w-2/3 p-2 text-xs bg-white border border-gray-300 rounded-lg outline-none focus:border-red-500 font-medium">
-                        <button type="submit" class="bg-red-600 text-white px-3 rounded-lg text-xs font-bold shadow active:scale-95 transition"><i class="fa-solid fa-paper-plane"></i></button>
+                    <form id="comment-form" class="flex gap-2">
+                        <input type="text" id="comment-user" required placeholder="नाम" class="w-1/3 p-2 text-xs border rounded-lg">
+                        <input type="text" id="comment-msg" required placeholder="राय लिखें..." class="w-2/3 p-2 text-xs border rounded-lg">
+                        <button type="submit" class="bg-red-600 text-white px-3 rounded-lg text-xs"><i class="fa-solid fa-paper-plane"></i></button>
                     </form>
                 </div>
-
             </div>
         </div>
     </div>
 
     <div id="admin-modal" class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-3 hidden backdrop-blur-sm">
-        <div class="bg-white rounded-2xl max-w-2xl w-full p-6 relative shadow-2xl overflow-y-auto max-h-[90vh] modal-scroll text-left">
-            <button type="button" onclick="closeModal('admin-modal')" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-xl"><i class="fa-solid fa-xmark"></i></button>
-            <h2 class="text-xl font-black text-gray-900 border-b pb-2 mb-4 flex items-center gap-2"><i class="fa-solid fa-user-shield text-red-600"></i> आज तक स्टाइल - न्यूज़ एडमिन पैनल</h2>
+        <div class="bg-white rounded-2xl max-w-2xl w-full p-6 relative shadow-2xl overflow-y-auto max-h-[90vh] text-left">
+            <button type="button" onclick="closeModal('admin-modal')" class="absolute top-4 right-4 text-gray-400 text-xl"><i class="fa-solid fa-xmark"></i></button>
+            <h2 class="text-xl font-black text-gray-900 border-b pb-2 mb-4">📰 न्यूज़ एडमिन पैनल</h2>
             
             <form id="admin-post-form" class="space-y-4 text-sm">
                 <div>
-                    <label class="block font-bold text-gray-700 mb-1">समाचार का मुख्य शीर्षक (Title)</label>
-                    <input type="text" id="post-title" required class="w-full p-2.5 bg-gray-50 border border-gray-300 rounded-lg font-medium" placeholder="जैसे: सूर्यकुमार यादव ने कप्तानी संभालते ही रचा नया इतिहास">
+                    <label class="block font-bold text-gray-700 mb-1">शीर्षक (Title)</label>
+                    <input type="text" id="post-title" required class="w-full p-2.5 border rounded-lg bg-gray-50">
                 </div>
                 <div class="grid grid-cols-2 gap-4">
                     <div>
-                        <label class="block font-bold text-gray-700 mb-1">कैटेगरी / टैग</label>
-                        <select id="post-tag" class="w-full p-2.5 bg-gray-50 border border-gray-300 rounded-lg font-medium">
+                        <label class="block font-bold text-gray-700 mb-1">टैग</label>
+                        <select id="post-tag" class="w-full p-2.5 border rounded-lg bg-gray-50">
                             <option value="🏏 क्रिकेट स्पेशल">🏏 क्रिकेट स्पेशल</option>
                             <option value="🌿 4K वॉलपेपर">🌿 4K वॉलपेपर</option>
                             <option value="🔥 बड़ी खबर">🔥 बड़ी खबर</option>
-                            <option value="🏎️ ऑटोमोबाइल्स">🏎️ ऑटोमोबाइल्स</option>
                         </select>
                     </div>
                     <div>
-                        <label class="block font-bold text-gray-700 mb-1">YouTube साइज़ फोटो लिंक (Image URL)</label>
-                        <input type="url" id="post-image" required class="w-full p-2.5 bg-gray-50 border border-gray-300 rounded-lg text-xs" placeholder="https://images.unsplash.com/photo-...">
+                        <label class="block font-bold text-gray-700 mb-1">फोटो लिंक (Image URL)</label>
+                        <input type="url" id="post-image" required class="w-full p-2.5 border rounded-lg bg-gray-50 text-xs" placeholder="https://...">
                     </div>
                 </div>
-
                 <div>
-                    <label class="block font-bold text-gray-700 mb-1">मुख्य समाचार लेख (500+ शब्दों का ओरिजिनल आर्टिकल लिखें, आप लिंक भी जोड़ सकते हैं)</label>
-                    <div id="editor-container" class="bg-gray-50 rounded-b-lg border-gray-300"></div>
+                    <label class="block font-bold text-gray-700 mb-1">समाचार लेख (यहाँ लिंक भी जोड़ सकते हैं)</label>
+                    <div id="editor-container" class="bg-gray-50 rounded-b-lg min-h-[150px]"></div>
                 </div>
-
-                <button type="submit" class="w-full bg-red-600 text-white font-black py-3 rounded-xl shadow-md hover:bg-red-700 transition tracking-wide text-base active:scale-95">📰 लाइव न्यूज़ पब्लिश करें</button>
+                <button type="submit" class="w-full bg-red-600 text-white font-black py-3 rounded-xl shadow-md">पब्लिश करें</button>
             </form>
         </div>
     </div>
 
-    <div id="about-modal" class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 hidden backdrop-blur-sm"><div class="bg-white rounded-2xl max-w-xl w-full p-6 relative text-left"><button type="button" onclick="closeModal('about-modal')" class="absolute top-4 right-4 text-gray-400 text-xl"><i class="fa-solid fa-xmark"></i></button><h2 class="text-xl font-black text-gray-900 border-b pb-2 mb-4">ℹ️ About Us</h2><p class="text-sm text-gray-700">PicWorld (photoworld.online) पर आपका स्वागत है। हमारा लक्ष्य क्रिकेट प्रेमियों और वॉलपेपर के शौकीनों को साफ और सुरक्षित एचडी लाइव इमेजेस प्रदान करना है।</p></div></div>
-    <div id="contact-modal" class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 hidden backdrop-blur-sm"><div class="bg-white rounded-2xl max-w-xl w-full p-6 relative text-left"><button type="button" onclick="closeModal('contact-modal')" class="absolute top-4 right-4 text-gray-400 text-xl"><i class="fa-solid fa-xmark"></i></button><h2 class="text-xl font-black text-gray-900 border-b pb-2 mb-4">📞 Contact Us</h2><p class="text-sm text-gray-700 mb-2">हमसे संपर्क करने के लिए ईमेल करें: <strong>support@photoworld.online</strong></p></div></div>
-    <div id="disclaimer-modal" class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 hidden backdrop-blur-sm"><div class="bg-white rounded-2xl max-w-xl w-full p-6 relative text-left"><button type="button" onclick="closeModal('disclaimer-modal')" class="absolute top-4 right-4 text-gray-400 text-xl"><i class="fa-solid fa-xmark"></i></button><h2 class="text-xl font-black text-gray-900 border-b pb-2 mb-4">⚠️ Disclaimer</h2><p class="text-sm text-gray-700">PicWorld एक लाइव सर्च इंजन है, यह अपने सर्वर पर कोई मीडिया फाइल होस्ट नहीं करता। सभी तस्वीरें इंटरनेट के सार्वजनिक डोमेन से प्रदर्शित होती हैं।</p></div></div>
-    <div id="privacy-modal" class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 hidden backdrop-blur-sm"><div class="bg-white rounded-2xl max-w-xl w-full p-6 relative text-left"><button type="button" onclick="closeModal('privacy-modal')" class="absolute top-4 right-4 text-gray-400 text-xl"><i class="fa-solid fa-xmark"></i></button><h2 class="text-xl font-black text-gray-900 border-b pb-2 mb-4">🔒 Privacy Policy</h2><p class="text-sm text-gray-700">हम उपयोगकर्ताओं की गोपनीयता का सम्मान करते हैं। हमारी वेबसाइट थर्ड-पार्टी विज्ञापनों (AdSense) के लिए मानक कुकीज़ का उपयोग करती है।</p></div></div>
-    <div id="terms-modal" class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 hidden backdrop-blur-sm"><div class="bg-white rounded-2xl max-w-xl w-full p-6 relative text-left"><button type="button" onclick="closeModal('terms-modal')" class="absolute top-4 right-4 text-gray-400 text-xl"><i class="fa-solid fa-xmark"></i></button><h2 class="text-xl font-black text-gray-900 border-b pb-2 mb-4">📝 Terms & Conditions</h2><p class="text-sm text-gray-700">इस वेबसाइट का उपयोग केवल वैध और व्यक्तिगत मनोरंजन के उद्देश्यों के लिए किया जा सकता है। सर्वर को नुकसान पहुंचाना वर्जित है।</p></div></div>
+    <div id="about-modal" class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 hidden"><div class="bg-white rounded-2xl max-w-xl w-full p-6 relative"><button type="button" onclick="closeModal('about-modal')" class="absolute top-4 right-4 text-gray-400"><i class="fa-solid fa-xmark"></i></button><h2 class="text-xl font-black mb-4">ℹ️ About Us</h2><p class="text-sm text-gray-700">PicWorld पर आपका स्वागत है।</p></div></div>
+    <div id="contact-modal" class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 hidden"><div class="bg-white rounded-2xl max-w-xl w-full p-6 relative"><button type="button" onclick="closeModal('contact-modal')" class="absolute top-4 right-4 text-gray-400"><i class="fa-solid fa-xmark"></i></button><h2 class="text-xl font-black mb-4">📞 Contact Us</h2><p class="text-sm text-gray-700">support@photoworld.online</p></div></div>
+    <div id="disclaimer-modal" class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 hidden"><div class="bg-white rounded-2xl max-w-xl w-full p-6 relative"><button type="button" onclick="closeModal('disclaimer-modal')" class="absolute top-4 right-4 text-gray-400"><i class="fa-solid fa-xmark"></i></button><h2 class="text-xl font-black mb-4">⚠️ Disclaimer</h2><p class="text-sm text-gray-700">यह एक लाइव इमेज सर्च engine है।</p></div></div>
+    <div id="privacy-modal" class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 hidden"><div class="bg-white rounded-2xl max-w-xl w-full p-6 relative"><button type="button" onclick="closeModal('privacy-modal')" class="absolute top-4 right-4 text-gray-400"><i class="fa-solid fa-xmark"></i></button><h2 class="text-xl font-black mb-4">🔒 Privacy Policy</h2><p class="text-sm text-gray-700">हम यूजर प्राइवेसी का सम्मान करते हैं।</p></div></div>
+    <div id="terms-modal" class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 hidden"><div class="bg-white rounded-2xl max-w-xl w-full p-6 relative"><button type="button" onclick="closeModal('terms-modal')" class="absolute top-4 right-4 text-gray-400"><i class="fa-solid fa-xmark"></i></button><h2 class="text-xl font-black mb-4">📝 Terms & Conditions</h2><p class="text-sm text-gray-700">नियम व शर्तें लागू।</p></div></div>
 
     <script>
-        // ================= USER FIREBASE CONFIGURATION =================
         const firebaseConfig = {
           apiKey: "AIzaSyCglO0vHutINDOWaIWMsv4N9_54dpbPvIo",
           authDomain: "project-8621d575-e2f7-45a2-963.firebaseapp.com",
@@ -238,29 +223,18 @@
           projectId: "project-8621d575-e2f7-45a2-963",
           storageBucket: "project-8621d575-e2f7-45a2-963.firebasestorage.app",
           messagingSenderId: "756626829965",
-          appId: "1:756626829965:web:935e4dfabb4d52e211a8c4",
-          measurementId: "G-J3YBFSS4D8"
+          appId: "1:756626829965:web:935e4dfabb4d52e211a8c4"
         };
 
-        // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
         const database = firebase.database();
 
-        // Rich Text Editor Setup
         var quill = new Quill('#editor-container', {
-            modules: {
-                toolbar: [
-                    [{ 'header': [1, 2, 3, false] }],
-                    ['bold', 'italic', 'underline'],
-                    [{ 'color': [] }, { 'background': [] }],
-                    ['link', 'blockquote', 'clean']
-                ]
-            },
-            placeholder: 'यहाँ अपनी कड़क खबर लिखें (किसी भी लाइन को सेलेक्ट करके ऊपर से लिंक 🔗 बटन दबाकर वीडियो या वेबसाइट का लिंक जोड़ें)...',
+            modules: { toolbar: [[{ 'header': [1, 2, false] }], ['bold', 'italic', 'underline'], ['link', 'blockquote']] },
+            placeholder: 'यहाँ समाचार लिखें और लिंक जोड़ें...',
             theme: 'snow'
         });
 
-        // Elements
         const gallery = document.getElementById('gallery');
         const searchForm = document.getElementById('search-form');
         const searchInput = document.getElementById('search-input');
@@ -268,4 +242,53 @@
         const blogGrid = document.getElementById('blog-grid');
         
         let currentQuery = 'Cricket Match';
-        let pa
+        let pageOffset = 0;
+        let activeBlogId = null;
+
+        // 🌟 पेज स्विचिंग इंजन 🌟
+        function showPage(pageName) {
+            const photoSection = document.getElementById('photo-page-section');
+            const blogSection = document.getElementById('blog-page-section');
+            
+            if(pageName === 'blogs') {
+                photoSection.classList.add('hidden');
+                blogSection.classList.remove('hidden');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else {
+                blogSection.classList.add('hidden');
+                photoSection.classList.remove('hidden');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        function fetchLiveImages(query, isLoadMore = false) {
+            statusMessage.classList.remove('hidden');
+            if (!isLoadMore) { gallery.innerHTML = ''; pageOffset = 0; }
+            currentQuery = query;
+            const images = [];
+            for (let i = 1; i <= 16; i++) {
+                const randomId = Math.floor(Math.random() * 5000) + pageOffset + i;
+                images.push(`https://picsum.photos/800/450?random=${randomId}`);
+            }
+            pageOffset += 16;
+            displayImages(images, isLoadMore);
+            statusMessage.classList.add('hidden');
+        }
+
+        function displayImages(urls, isLoadMore) {
+            urls.forEach((url) => {
+                const div = document.createElement('div');
+                div.className = "bg-white rounded-xl shadow-sm border overflow-hidden group relative";
+                div.innerHTML = `
+                    <div class="youtube-card">
+                        <img src="${url}" alt="PicWorld" loading="lazy">
+                        <div class="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity gap-4">
+                            <a href="${url}" target="_blank" class="bg-white text-black px-3 py-1.5 rounded-lg text-xs font-bold">डाउनलोड</a>
+                        </div>
+                    </div>
+                `;
+                gallery.appendChild(div);
+            });
+        }
+
+        function loadMoreImages() { fetch
