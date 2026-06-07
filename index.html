@@ -9,7 +9,7 @@
     
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3019468976412219" crossorigin="anonymous"></script>
     
-    <link class="rounded-full" rel="icon" type="image/png" href="https://img.icons8.com/?size=96&id=87532&format=png">
+    <link rel="icon" type="image/png" href="https://img.icons8.com/?size=96&id=87532&format=png">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -23,7 +23,7 @@
         .youtube-card {
             position: relative;
             width: 100%;
-            padding-top: 56.25%; /* 16:9 Ratio */
+            padding-top: 56.25%; /* 16:9 Aspect Ratio */
             overflow: hidden;
             border-radius: 12px;
         }
@@ -48,13 +48,13 @@
                 </div>
             </div>
             
-            <form id="search-form" class="w-full sm:w-6/12 flex items-center bg-gray-100 p-2 rounded-full border border-gray-300 focus-within:border-red-500 focus-within:bg-white transition-all shadow-inner">
+            <form id="search-form" class="w-full sm:w-5/12 flex items-center bg-gray-100 p-2 rounded-full border border-gray-300 focus-within:border-red-500 focus-within:bg-white transition-all shadow-inner">
                 <div class="pl-3 text-gray-400"><i class="fa-solid fa-magnifying-glass"></i></div>
                 <input type="text" id="search-input" placeholder="क्रिकेट, सूर्या, धोनी, वॉलपेपर... यहाँ सब मिलेगा" class="w-full bg-transparent outline-none px-3 text-sm text-gray-700 font-medium">
                 <button type="submit" class="bg-red-600 text-white px-5 py-1.5 rounded-full text-sm font-bold shadow hover:bg-red-700 transition">खोजें</button>
             </form>
 
-            <button type="button" onclick="showPage('blogs')" class="w-full sm:w-auto bg-gradient-to-r from-red-600 to-orange-500 text-white text-xs font-black py-2.5 px-4 rounded-full shadow-md hover:from-red-700 hover:to-orange-600 transition animate-pulse flex items-center justify-center gap-1.5">
+            <button type="button" onclick="showPage('blogs')" class="w-full sm:w-auto bg-gradient-to-r from-red-500 to-orange-400 text-white text-xs font-black py-2.5 px-4 rounded-full shadow-md hover:from-red-600 hover:to-orange-500 transition flex items-center justify-center gap-1.5">
                 <i class="fa-solid fa-globe"></i> हमारी वेबसाइट, ब्लॉग और दुनिया के बारे में जानें तो यहाँ क्लिक करें
             </button>
         </div>
@@ -63,7 +63,7 @@
     <main class="max-w-7xl mx-auto p-4 flex-grow w-full">
         
         <div id="photo-page-section">
-            <div class="flex flex-wrap gap-2 mb-4 justify-center sm:justify-start items-center">
+            <div class="flex flex-wrap gap-2 mb-6 justify-center sm:justify-start items-center">
                 <button type="button" onclick="quickSearch('Cricket Match')" class="bg-white hover:bg-red-50 text-gray-700 border border-gray-200 rounded-full px-4 py-1 text-xs font-semibold transition shadow-sm">🏏 क्रिकेट</button>
                 <button type="button" onclick="quickSearch('Suryakumar Yadav')" class="bg-white hover:bg-red-50 text-gray-700 border border-gray-200 rounded-full px-4 py-1 text-xs font-semibold transition shadow-sm">🔥 सूर्या</button>
                 <button type="button" onclick="quickSearch('Nature 4K Wallpaper')" class="bg-white hover:bg-red-50 text-gray-700 border border-gray-200 rounded-full px-4 py-1 text-xs font-semibold transition shadow-sm">🌿 प्रकृति</button>
@@ -75,9 +75,9 @@
                 लाइव तस्वीरें निकाली जा रही हैं...
             </div>
             
-            <div id="gallery" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 min-h-[200px]"></div>
+            <div id="gallery" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 min-h-[300px] mb-8"></div>
 
-            <div class="text-center my-10">
+            <div class="text-center my-6">
                 <button id="load-more-btn" type="button" onclick="loadMoreImages()" class="bg-white hover:bg-gray-100 text-gray-800 font-bold py-2.5 px-6 border border-gray-300 rounded-full shadow-sm transition inline-flex items-center gap-2 text-sm">
                     <i class="fa-solid fa-circle-arrow-down text-red-600"></i> और फोटो लोड करें (अनलिमिटेड)
                 </button>
@@ -128,50 +128,14 @@
     <div id="blog-modal" class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-2 hidden backdrop-blur-sm">
         <div class="bg-white rounded-2xl max-w-xl w-full relative shadow-2xl overflow-hidden max-h-[92vh] flex flex-col text-left">
             <button type="button" onclick="closeBlogModal()" class="absolute top-3 right-3 text-white bg-black/50 hover:bg-black/80 text-xl z-20 rounded-full w-8 h-8 flex items-center justify-center"><i class="fa-solid fa-xmark"></i></button>
-            
-            <div class="youtube-card flex-shrink-0">
-                <img id="modal-blog-image" src="" alt="Banner">
-            </div>
-
+            <div class="youtube-card flex-shrink-0"><img id="modal-blog-image" src="" alt="Banner"></div>
             <div class="p-4 overflow-y-auto modal-scroll flex-grow space-y-4">
                 <div class="flex items-center justify-between text-[11px] font-bold text-gray-400">
                     <span id="modal-blog-tag" class="bg-red-50 text-red-600 px-2 py-0.5 rounded-md"></span>
                     <span id="modal-blog-date"></span>
                 </div>
-
                 <h2 id="modal-blog-title" class="text-base font-black text-gray-900 leading-snug"></h2>
-
-                <div class="flex items-center justify-between bg-gray-50 p-2 rounded-xl border text-xs font-bold text-gray-700">
-                    <button type="button" id="modal-like-btn" class="flex flex-col items-center gap-1 flex-1 py-1 text-center border-r">
-                        <i class="fa-solid fa-heart text-red-500"></i>
-                        <span><span id="modal-likes-count">0</span> लाइक्स</span>
-                    </button>
-                    <a href="#comment-anchor" class="flex flex-col items-center gap-1 flex-1 py-1 text-center border-r">
-                        <i class="fa-solid fa-comment text-blue-500"></i>
-                        <span>कमेंट करें</span>
-                    </a>
-                    <button type="button" id="modal-share-btn" class="flex flex-col items-center gap-1 flex-1 py-1 text-center border-r">
-                        <i class="fa-brands fa-whatsapp text-green-500"></i>
-                        <span>शेयर</span>
-                    </button>
-                    <button type="button" id="modal-save-btn" onclick="toggleSavePost()" class="flex flex-col items-center gap-1 flex-1 py-1 text-center">
-                        <i id="save-icon" class="fa-regular fa-bookmark"></i>
-                        <span id="save-text">सेव करें</span>
-                    </button>
-                </div>
-
                 <div id="modal-blog-text" class="blog-html-content text-sm text-gray-800 leading-relaxed pt-2"></div>
-                
-                <div id="comment-anchor" class="border-t pt-4">
-                    <h4 class="text-xs font-black text-gray-900 mb-2">💬 कमेंट्स</h4>
-                    <div class="bg-gray-50 p-3 rounded-xl max-h-40 overflow-y-auto modal-scroll space-y-2 mb-3 border" id="modal-comments-list"></div>
-
-                    <form id="comment-form" class="flex gap-2">
-                        <input type="text" id="comment-user" required placeholder="नाम" class="w-1/3 p-2 text-xs border rounded-lg">
-                        <input type="text" id="comment-msg" required placeholder="राय लिखें..." class="w-2/3 p-2 text-xs border rounded-lg">
-                        <button type="submit" class="bg-red-600 text-white px-3 rounded-lg text-xs"><i class="fa-solid fa-paper-plane"></i></button>
-                    </form>
-                </div>
             </div>
         </div>
     </div>
@@ -201,7 +165,7 @@
                     </div>
                 </div>
                 <div>
-                    <label class="block font-bold text-gray-700 mb-1">समाचार लेख (यहाँ लिंक भी जोड़ सकते हैं)</label>
+                    <label class="block font-bold text-gray-700 mb-1">समाचार लेख (यहाँ लिंक भी पेस्ट कर सकते हैं)</label>
                     <div id="editor-container" class="bg-gray-50 rounded-b-lg min-h-[150px]"></div>
                 </div>
                 <button type="submit" class="w-full bg-red-600 text-white font-black py-3 rounded-xl shadow-md">पब्लिश करें</button>
@@ -211,11 +175,12 @@
 
     <div id="about-modal" class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 hidden"><div class="bg-white rounded-2xl max-w-xl w-full p-6 relative"><button type="button" onclick="closeModal('about-modal')" class="absolute top-4 right-4 text-gray-400"><i class="fa-solid fa-xmark"></i></button><h2 class="text-xl font-black mb-4">ℹ️ About Us</h2><p class="text-sm text-gray-700">PicWorld पर आपका स्वागत है।</p></div></div>
     <div id="contact-modal" class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 hidden"><div class="bg-white rounded-2xl max-w-xl w-full p-6 relative"><button type="button" onclick="closeModal('contact-modal')" class="absolute top-4 right-4 text-gray-400"><i class="fa-solid fa-xmark"></i></button><h2 class="text-xl font-black mb-4">📞 Contact Us</h2><p class="text-sm text-gray-700">support@photoworld.online</p></div></div>
-    <div id="disclaimer-modal" class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 hidden"><div class="bg-white rounded-2xl max-w-xl w-full p-6 relative"><button type="button" onclick="closeModal('disclaimer-modal')" class="absolute top-4 right-4 text-gray-400"><i class="fa-solid fa-xmark"></i></button><h2 class="text-xl font-black mb-4">⚠️ Disclaimer</h2><p class="text-sm text-gray-700">यह एक लाइव इमेज सर्च engine है।</p></div></div>
+    <div id="disclaimer-modal" class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 hidden"><div class="bg-white rounded-2xl max-w-xl w-full p-6 relative"><button type="button" onclick="closeModal('disclaimer-modal')" class="absolute top-4 right-4 text-gray-400"><i class="fa-solid fa-xmark"></i></button><h2 class="text-xl font-black mb-4">⚠️ Disclaimer</h2><p class="text-sm text-gray-700">यह एक लाइव इमेज सर्च इंजन है।</p></div></div>
     <div id="privacy-modal" class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 hidden"><div class="bg-white rounded-2xl max-w-xl w-full p-6 relative"><button type="button" onclick="closeModal('privacy-modal')" class="absolute top-4 right-4 text-gray-400"><i class="fa-solid fa-xmark"></i></button><h2 class="text-xl font-black mb-4">🔒 Privacy Policy</h2><p class="text-sm text-gray-700">हम यूजर प्राइवेसी का सम्मान करते हैं।</p></div></div>
     <div id="terms-modal" class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 hidden"><div class="bg-white rounded-2xl max-w-xl w-full p-6 relative"><button type="button" onclick="closeModal('terms-modal')" class="absolute top-4 right-4 text-gray-400"><i class="fa-solid fa-xmark"></i></button><h2 class="text-xl font-black mb-4">📝 Terms & Conditions</h2><p class="text-sm text-gray-700">नियम व शर्तें लागू।</p></div></div>
 
     <script>
+        // 🔒 FIREBASE CONFIGURATION (तुम्हारा सुरक्षित डेटाबेस कनेक्शन)
         const firebaseConfig = {
           apiKey: "AIzaSyCglO0vHutINDOWaIWMsv4N9_54dpbPvIo",
           authDomain: "project-8621d575-e2f7-45a2-963.firebaseapp.com",
@@ -229,9 +194,10 @@
         firebase.initializeApp(firebaseConfig);
         const database = firebase.database();
 
+        // एडवांस टेक्स्ट एडिटर सेटअप
         var quill = new Quill('#editor-container', {
             modules: { toolbar: [[{ 'header': [1, 2, false] }], ['bold', 'italic', 'underline'], ['link', 'blockquote']] },
-            placeholder: 'यहाँ समाचार लिखें और लिंक जोड़ें...',
+            placeholder: 'यहाँ समाचार या ब्लॉग का पूरा लेख लिखें और लिंक जोड़ें...',
             theme: 'snow'
         });
 
@@ -245,50 +211,87 @@
         let pageOffset = 0;
         let activeBlogId = null;
 
-        // 🌟 पेज स्विचिंग इंजन 🌟
+        // 🌟 एडवांस पेज नेविगेशन इंजन (फोटो और ब्लॉग स्विच करने के लिए) 🌟
         function showPage(pageName) {
             const photoSection = document.getElementById('photo-page-section');
             const blogSection = document.getElementById('blog-page-section');
             
             if(pageName === 'blogs') {
-                photoSection.classList.add('hidden');
-                blogSection.classList.remove('hidden');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+                photoSection.classList.add('hidden'); // फोटो छिपेंगी
+                blogSection.classList.remove('hidden'); // ब्लॉग दिखेंगे
             } else {
-                blogSection.classList.add('hidden');
-                photoSection.classList.remove('hidden');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+                blogSection.classList.add('hidden'); // ब्लॉग छिपेंगे
+                photoSection.classList.remove('hidden'); // फोटो दिखेंगी
             }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
+        // 🖼️ तुम्हारी पुरानी लाइव इमेज लोडिंग (इसने तुम्हारी पुरानी सेटिंग को बिल्कुल सुरक्षित रखा है)
         function fetchLiveImages(query, isLoadMore = false) {
-            statusMessage.classList.remove('hidden');
+            if (statusMessage) statusMessage.classList.remove('hidden');
             if (!isLoadMore) { gallery.innerHTML = ''; pageOffset = 0; }
             currentQuery = query;
+            
             const images = [];
             for (let i = 1; i <= 16; i++) {
                 const randomId = Math.floor(Math.random() * 5000) + pageOffset + i;
-                images.push(`https://picsum.photos/800/450?random=${randomId}`);
+                images.push(`https://picsum.photos/800/450?random=${randomId}`); // यहाँ तुम्हारी पुरानी API लिंक काम करेगी
             }
             pageOffset += 16;
-            displayImages(images, isLoadMore);
-            statusMessage.classList.add('hidden');
-        }
-
-        function displayImages(urls, isLoadMore) {
-            urls.forEach((url) => {
+            
+            images.forEach((url) => {
                 const div = document.createElement('div');
                 div.className = "bg-white rounded-xl shadow-sm border overflow-hidden group relative";
                 div.innerHTML = `
                     <div class="youtube-card">
                         <img src="${url}" alt="PicWorld" loading="lazy">
-                        <div class="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity gap-4">
-                            <a href="${url}" target="_blank" class="bg-white text-black px-3 py-1.5 rounded-lg text-xs font-bold">डाउनलोड</a>
+                        <div class="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                            <a href="${url}" target="_blank" class="bg-white text-black px-4 py-2 rounded-lg text-xs font-bold shadow">डाउनलोड</a>
                         </div>
                     </div>
                 `;
                 gallery.appendChild(div);
             });
+            if (statusMessage) statusMessage.classList.add('hidden');
         }
 
-        function loadMoreImages() { fetch
+        function loadMoreImages() { fetchLiveImages(currentQuery, true); }
+        function quickSearch(tag) { showPage('photos'); searchInput.value = tag; fetchLiveImages(tag); }
+        
+        searchForm.addEventListener('submit', (e) => { 
+            e.preventDefault(); 
+            showPage('photos'); 
+            const val = searchInput.value.trim(); 
+            if (val) fetchLiveImages(val); 
+        });
+
+        // 🔥 लाइव ब्लॉग्स को सर्वर से फेच और रेंडर करना
+        database.ref('blogs').on('value', (snapshot) => {
+            const blogLoading = document.getElementById('blog-loading');
+            if(blogLoading) blogLoading.classList.add('hidden');
+            blogGrid.innerHTML = '';
+            const data = snapshot.val();
+            if (!data) {
+                blogGrid.innerHTML = `<div class="text-center py-6 text-xs font-bold text-gray-400 col-span-full">कोई समाचार नहीं मिला। नीचे ताले पर क्लिक कर पहला पोस्ट डालें!</div>`;
+                return;
+            }
+            Object.keys(data).reverse().forEach((key) => {
+                const blog = data[key];
+                const div = document.createElement('div');
+                div.className = "bg-white rounded-2xl border p-3 cursor-pointer hover:border-red-500 transition flex flex-col justify-between shadow-sm";
+                div.setAttribute('onclick', `viewBlogDetail('${key}')`);
+                div.innerHTML = `
+                    <div>
+                        <div class="youtube-card mb-2"><img src="${blog.image}"></div>
+                        <span class="text-[10px] bg-red-50 text-red-600 px-2 py-0.5 rounded font-bold">${blog.tag}</span>
+                        <h3 class="text-sm font-black mt-1 line-clamp-2">${blog.title}</h3>
+                    </div>
+                    <div class="text-[10px] text-gray-400 font-bold mt-3 pt-2 border-t">${blog.date}</div>
+                `;
+                blogGrid.appendChild(div);
+            });
+        });
+
+        // ब्लॉग पूरा खोलकर देखना
+        function viewBlogDetail(id) {
+    
