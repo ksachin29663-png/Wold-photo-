@@ -10,6 +10,8 @@ servers:
 tags:
   - name: health
     description: Health operations
+  - name: search
+    description: Image search operations
 paths:
   /healthz:
     get:
@@ -24,6 +26,32 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+  /search:
+    get:
+      operationId: searchImages
+      tags: [search]
+      summary: Search for images
+      description: Search for images using Yahoo image search
+      parameters:
+        - name: q
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Search query
+      responses:
+        "200":
+          description: Search results
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SearchResults"
+        "500":
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
 components:
   schemas:
     HealthStatus:
@@ -33,4 +61,23 @@ components:
           type: string
       required:
         - status
-
+    SearchResults:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            type: string
+      required:
+        - results
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+        results:
+          type: array
+          items:
+            type: string
+      required:
+        - error
