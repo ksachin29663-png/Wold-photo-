@@ -9,7 +9,6 @@ import * as zod from 'zod';
 
 
 /**
- * Returns server health status
  * @summary Health check
  */
 export const HealthCheckResponse = zod.object({
@@ -18,15 +17,22 @@ export const HealthCheckResponse = zod.object({
 
 
 /**
- * Search for images using Yahoo image search
- * @summary Search for images
+ * @summary Search for images using Unsplash
  */
 export const SearchImagesQueryParams = zod.object({
-  "q": zod.coerce.string().optional().describe('Search query')
+  "q": zod.coerce.string().optional(),
+  "page": zod.coerce.number().optional()
 })
 
 export const SearchImagesResponse = zod.object({
-  "results": zod.array(zod.string())
+  "results": zod.array(zod.object({
+  "url": zod.string(),
+  "fullUrl": zod.string(),
+  "thumb": zod.string(),
+  "alt": zod.string()
+})),
+  "totalPages": zod.number(),
+  "total": zod.number()
 })
 
 

@@ -7,8 +7,6 @@
  */
 
 export type SearchImagesParams = {
-/**
- * Search query
- */
 q?: string;
+page?: number;
 };

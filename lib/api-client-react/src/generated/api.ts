@@ -43,7 +43,6 @@ export const getHealthCheckUrl = () => {
 }
 
 /**
- * Returns server health status
  * @summary Health check
  */
 export const healthCheck = async ( options?: RequestInit): Promise<HealthStatus> => {
@@ -128,8 +127,7 @@ export const getSearchImagesUrl = (params?: SearchImagesParams,) => {
 }
 
 /**
- * Search for images using Yahoo image search
- * @summary Search for images
+ * @summary Search for images using Unsplash
  */
 export const searchImages = async (params?: SearchImagesParams, options?: RequestInit): Promise<SearchResults> => {
 
@@ -176,7 +174,7 @@ export type SearchImagesQueryError = ErrorType<ErrorResponse>
 
 
 /**
- * @summary Search for images
+ * @summary Search for images using Unsplash
  */
 
 export function useSearchImages<TData = Awaited<ReturnType<typeof searchImages>>, TError = ErrorType<ErrorResponse>>(

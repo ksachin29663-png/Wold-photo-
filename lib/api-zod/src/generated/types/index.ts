@@ -8,5 +8,6 @@
 
 export * from './errorResponse';
 export * from './healthStatus';
+export * from './imageItem';
 export * from './searchImagesParams';
 export * from './searchResults';

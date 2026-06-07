@@ -9,19 +9,26 @@ export interface HealthStatus {
   status: string;
 }
 
+export interface ImageItem {
+  url: string;
+  fullUrl: string;
+  thumb: string;
+  alt: string;
+}
+
 export interface SearchResults {
-  results: string[];
+  results: ImageItem[];
+  totalPages: number;
+  total: number;
 }
 
 export interface ErrorResponse {
   error: string;
-  results?: string[];
+  results?: ImageItem[];
 }
 
 export type SearchImagesParams = {
-/**
- * Search query
- */
 q?: string;
+page?: number;
 };
 

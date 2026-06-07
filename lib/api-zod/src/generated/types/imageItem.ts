@@ -5,9 +5,10 @@
  * API specification
  * OpenAPI spec version: 0.1.0
  */
-import type { ImageItem } from './imageItem';
 
-export interface ErrorResponse {
-  error: string;
-  results?: ImageItem[];
+export interface ImageItem {
+  url: string;
+  fullUrl: string;
+  thumb: string;
+  alt: string;
 }

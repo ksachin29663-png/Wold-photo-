@@ -5,7 +5,10 @@
  * API specification
  * OpenAPI spec version: 0.1.0
  */
+import type { ImageItem } from './imageItem';
 
 export interface SearchResults {
-  results: string[];
+  results: ImageItem[];
+  totalPages: number;
+  total: number;
 }

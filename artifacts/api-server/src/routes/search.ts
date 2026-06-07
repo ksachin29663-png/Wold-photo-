@@ -2,34 +2,37 @@ import { Router } from "express";
 
 const router = Router();
 
+const UNSPLASH_KEY = process.env.UNSPLASH_KEY || "8U2Zf4R86_6L_wH0zQ8wRdfpOnV48_Uun2K8M2x6-8g";
+
 router.get("/search", async (req, res) => {
   const query = (req.query.q as string) || "beautiful scenery";
-  const targetUrl = `https://images.search.yahoo.com/search/images?p=${encodeURIComponent(query)}`;
+  const page = Math.max(1, parseInt((req.query.page as string) || "1", 10));
 
   try {
-    const response = await fetch(targetUrl, {
-      headers: {
-        "User-Agent":
-          "Mozilla/5.0 (Linux; Android 10; Oppo) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Mobile Safari/537.36",
-      },
-    });
-    const htmlString = await response.text();
+    const url = `https://api.unsplash.com/search/photos?page=${page}&query=${encodeURIComponent(query)}&per_page=36&client_id=${UNSPLASH_KEY}`;
+    const response = await fetch(url);
 
-    const regex = /"murl":"(http[^"]+\.(jpg|jpeg|png|webp))"/g;
-    let match;
-    const imageUrls: string[] = [];
-
-    while ((match = regex.exec(htmlString)) !== null) {
-      if (!imageUrls.includes(match[1])) {
-        imageUrls.push(match[1]);
-      }
-      if (imageUrls.length >= 40) break;
+    if (!response.ok) {
+      throw new Error(`Unsplash API error: ${response.status}`);
     }
 
-    return res.json({ results: imageUrls });
+    const data = await response.json() as {
+      results: Array<{ urls: { regular: string; full: string; small: string }; alt_description: string | null }>;
+      total_pages: number;
+      total: number;
+    };
+
+    const results = data.results.map((item) => ({
+      url: item.urls.regular,
+      fullUrl: item.urls.full,
+      thumb: item.urls.small,
+      alt: item.alt_description || query,
+    }));
+
+    return res.json({ results, totalPages: data.total_pages, total: data.total });
   } catch (error) {
     req.log.error({ error }, "Image search error");
-    return res.status(500).json({ error: "इंटरनेट से फोटो निकालने में दिक्कत आई।", results: [] });
+    return res.status(500).json({ error: "फोटो लोड करने में समस्या आई।", results: [] });
   }
 });
 
