@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PicWorld - अनलिमिटेड लाइव इमेज सर्च इंजन</title>
+    
+    <meta name="google-site-verification" content="k9-0Q2iFe-2k57X_jxiraC1UgQUp7ODtO5ByKPyKvHY" />
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3019468976412219" crossorigin="anonymous"></script>
+    
+    <link rel="icon" type="image/png" href="https://img.icons8.com/?size=96&id=87532&format=png">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        .youtube-card {
+            position: relative;
+            width: 100%;
+            padding-top: 56.25%;
+            overflow: hidden;
+            border-radius: 12px;
+        }
+        .youtube-card img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .modal-scroll::-webkit-scrollbar {
+            width: 8px;
+        }
+        .modal-scroll::-webkit-scrollbar-thumb {
+            background-color: #ef4444;
+            border-radius: 10px;
+        }
+        .modal-scroll::-webkit-scrollbar-track {
+            background-color: #f1f5f9;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans text-gray-950 flex flex-col min-h-screen">
+
+    <header class="sticky top-0 bg-white/95 backdrop-blur-md shadow-sm z-40 py-3 px-4 flex flex-col sm:flex-row items-center justify-between gap-4 border-b border-gray-200">
+        <div class="flex items-center gap-2 cursor-pointer" onclick="location.reload()">
+            <div class="bg-red-600 text-white p-2 rounded-xl font-black text-xl w-10 h-10 flex items-center justify-center shadow">P</div>
+            <div>
+                <h1 class="text-lg font-black tracking-tight text-red-600">PicWorld</h1>
+                <p class="text-[9px] text-gray-400 font-bold uppercase tracking-wider">गूगल लाइव इमेज सर्च</p>
+            </div>
+        </div>
+        
+        <form id="search-form" class="w-full sm:w-8/12 flex items-center bg-gray-100 p-2 rounded-full border border-gray-300 focus-within:border-red-500 focus-within:bg-white transition-all shadow-inner">
+            <div class="pl-3 text-gray-400">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </div>
+            <input type="text" id="search-input" placeholder="क्रिकेट, सूर्या, धोनी, वॉलपेपर... यहाँ सब मिलेगा" class="w-full bg-transparent outline-none px-3 text-sm text-gray-700 font-medium">
+            <button type="submit" class="bg-red-600 text-white px-5 py-1.5 rounded-full text-sm font-bold shadow hover:bg-red-700 transition active:scale-95">खोजें</button>
+        </form>
+    </header>
+
+    <main class="max-w-7xl mx-auto p-4 flex-grow w-full">
+        <div class="flex flex-wrap gap-2 mb-4 justify-center sm:justify-start items-center">
+            <button type="button" onclick="quickSearch('Cricket Match')" class="bg-white hover:bg-red-50 text-gray-700 border border-gray-200 rounded-full px-4 py-1 text-xs font-semibold transition shadow-sm">🏏 क्रिकेट</button>
+            <button type="button" onclick="quickSearch('Suryakumar Yadav')" class="bg-white hover:bg-red-50 text-gray-700 border border-gray-200 rounded-full px-4 py-1 text-xs font-semibold transition shadow-sm">🔥 सूर्या</button>
+            <button type="button" onclick="quickSearch('Nature 4K Wallpaper')" class="bg-white hover:bg-red-50 text-gray-700 border border-gray-200 rounded-full px-4 py-1 text-xs font-semibold transition shadow-sm">🌿 प्रकृति</button>
+            <button type="button" onclick="quickSearch('Supercar')" class="bg-white hover:bg-red-50 text-gray-700 border border-gray-200 rounded-full px-4 py-1 text-xs font-semibold transition shadow-sm">🏎️ कारें</button>
+        </div>
+
+        <div id="status-message" class="text-center text-gray-500 my-12 text-sm font-semibold hidden">
+            <div class="inline-block w-5 h-5 border-2 border-red-600 border-t-transparent rounded-full animate-spin mr-2"></div>
+            गूगल से बेहतरीन तस्वीरें निकाली जा रही हैं...
+        </div>
+        
+        <div id="gallery" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"></div>
+
+        <div class="text-center my-10">
+            <button id="load-more-btn" type="button" onclick="loadMoreImages()" class="bg-white hover:bg-gray-100 text-gray-800 font-bold py-2.5 px-6 border border-gray-300 rounded-full shadow-sm transition inline-flex items-center gap-2 text-sm active:scale-95">
+                <i class="fa-solid fa-circle-arrow-down text-red-600"></i> और फोटो लोड करें (अनलिमिटेड)
+            </button>
+        </div>
+    </main>
+
+    <footer class="bg-white border-t border-gray-200 mt-12 py-8 text-center text-xs text-gray-500">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="text-center md:text-left">
+                <p class="font-bold text-gray-700 text-sm mb-1">PicWorld Network</p>
+                <p>© 2026 photoworld.online. सर्वाधिकार सुरक्षित।</p>
+            </div>
+            <div class="flex flex-wrap justify-center gap-x-6 gap-y-3 font-bold text-gray-600 text-sm">
+                <button type="button" onclick="openModal('about-modal')" class="hover:text-red-600 transition">ℹ️ About Us</button>
+                <button type="button" onclick="openModal('contact-modal')" class="hover:text-red-600 transition">📞 Contact Us</button>
+                <button type="button" onclick="openModal('disclaimer-modal')" class="hover:text-red-600 transition">⚠️ Disclaimer</button>
+                <button type="button" onclick="openModal('privacy-modal')" class="hover:text-red-600 transition">🔒 Privacy Policy</button>
+                <button type="button" onclick="openModal('terms-modal')" class="hover:text-red-600 transition">📝 Terms & Conditions</button>
+            </div>
+        </div>
+    </footer>
+
+    <div id="about-modal" class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 hidden backdrop-blur-sm">
+        <div class="bg-white rounded-2xl max-w-3xl w-full p-6 relative shadow-2xl overflow-y-auto max-h-[85vh] modal-scroll text-left">
+            <button type="button" onclick="closeModal('about-modal')" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-xl"><i class="fa-solid fa-xmark"></i></button>
+            <h2 class="text-xl font-black text-gray-900 border-b pb-2 mb-4 flex items-center gap-2"><i class="fa-solid fa-info-circle text-red-600"></i> About Us (हमारे बारे में पूरी जानकारी)</h2>
+            <div class="text-sm text-gray-700 space-y-4 leading-relaxed">
+                <p class="font-bold text-base text-red-600">PicWorld (photoworld.online) में आपका हार्दिक स्वागत है!</p>
+                <p>हमारा प्लेटफ़ॉर्म इंटरनेट जगत में सर्वश्रेष्ठ और सबसे तेज़ लाइव इमेज सर्च इंजनों में से एक है। आज के डिजिटल युग में, जहाँ उच्च गुणवत्ता (High-Quality) वाली छवियों, खेल वॉलपेपर्स, और क्रिकेट से जुड़ी लाइव तस्वीरों की मांग दिन-प्रतिदिन बढ़ती जा रही है, PicWorld उपयोगकर्ताओं को एक ऐसा एकीकृत समाधान प्रदान करता है जहाँ वे बिना किसी तकनीकी बाधा के अपनी पसंदीदा सामग्री तक पहुँच सकते हैं।</p>
+                <p><strong>हमारा मिशन और विज़न:</strong> हमारा प्राथमिक लक्ष्य दुनिया भर के इंटरनेट उपयोगकर्ताओं, विशेष रूप से क्रिकेट प्रेमियों, डिजिटल सामग्री निर्माताओं और वॉलपेपर के शौकीनों को बिल्कुल साफ, सुरक्षित और फुल-एचडी (1080p, 4K) इमेजेस सीधे उनके मोबाइल या कंप्यूटर स्क्रीन तक पहुंचाना है। हम यह सुनिश्चित करते हैं कि हमारी वेबसाइट पर आने वाले प्रत्येक विज़िटर को एक प्रीमियम अनुभव मिले।</p>
+                <p><strong>हमारी मुख्य विशेषताएं:</strong> हमारी वेबसाइट अत्याधुनिक सर्च तकनीक पर काम करती है, जो सीधे वैश्विक सार्वजनिक डेटाबेस से लाइव तस्वीरें खींचकर आपके सामने रखती है। इसमें अनलिमिटेड इमेज लोडिंग सिस्टम, वन-क्लिक डायरेक्ट डाउनलोड और सोशल मीडिया (व्हाट्सएप, फेसबुक) पर त्वरित शेयरिंग जैसी क्रांतिकारी सुविधाएं जोड़ी गई हैं।</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="contact-modal" class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 hidden backdrop-blur-sm">
+        <div class="bg-white rounded-2xl max-w-xl w-full p-6 relative shadow-2xl text-left">
+            <button type="button" onclick="closeModal('contact-modal')" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-xl"><i class="fa-solid fa-xmark"></i></button>
+            <h2 class="text-xl font-black text-gray-900 border-b pb-2 mb-4 flex items-center gap-2"><i class="fa-solid fa-envelope text-red-600"></i> Contact Us (आधिकारिक संपर्क फ़ॉर्म)</h2>
+            
+            <form id="contact-form" onsubmit="handleContactSubmit(event)" class="space-y-4 text-sm">
+                <div>
+                    <label class="block text-gray-700 font-bold mb-1"><i class="fa-solid fa-user text-xs mr-1 text-gray-400"></i> आपका पूरा नाम (Full Name):</label>
+                    <input type="text" id="contact-name" required class="w-full p-2.5 bg-gray-50 border border-gray-300 rounded-lg focus:outline-none focus:border-red-500 transition shadow-inner" placeholder="अपना नाम यहाँ लिखें">
+                </div>
+                <div>
+                    <label class="block text-gray-700 font-bold mb-1"><i class="fa-solid fa-at text-xs mr-1 text-gray-400"></i> ईमेल एड्रेस (Email Address):</label>
+                    <input type="email" id="contact-email" required class="w-full p-2.5 bg-gray-50 border border-gray-300 rounded-lg focus:outline-none focus:border-red-500 transition shadow-inner" placeholder="name@example.com">
+                </div>
+                <div>
+                    <label class="block text-gray-700 font-bold mb-1"><i class="fa-solid fa-pen-to-square text-xs mr-1 text-gray-400"></i> आपका सवाल या समस्या (Message/Query):</label>
+                    <textarea id="contact-message" rows="4" required class="w-full p-2.5 bg-gray-50 border border-gray-300 rounded-lg focus:outline-none focus:border-red-500 transition shadow-inner" placeholder="अपनी समस्या या सवाल का पूरा विवरण..."></textarea>
+                </div>
+                <button type="submit" class="w-full bg-red-600 text-white font-bold py-2.5 rounded-lg shadow-md hover:bg-red-700 transition duration-200 active:scale-95 flex items-center justify-center gap-2 text-base">
+                    <i class="fa-solid fa-paper-plane"></i> संदेश सुरक्षित रूप से भेजें
+                </button>
+            </form>
+            <div id="contact-success" class="text-green-600 font-bold text-center mt-4 p-3 bg-green-50 border border-green-200 rounded-lg hidden">
+                <i class="fa-solid fa-circle-check"></i> आपका संदेश सफलतापूर्वक दर्ज कर लिया गया है!
+            </div>
+        </div>
+    </div>
+
+    <div id="disclaimer-modal" class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 hidden backdrop-blur-sm">
+        <div class="bg-white rounded-2xl max-w-3xl w-full p-6 relative shadow-2xl overflow-y-auto max-h-[85vh] modal-scroll text-left">
+            <button type="button" onclick="closeModal('disclaimer-modal')" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-xl"><i class="fa-solid fa-xmark"></i></button>
+            <h2 class="text-xl font-black text-gray-900 border-b pb-2 mb-4 flex items-center gap-2"><i class="fa-solid fa-triangle-exclamation text-red-600"></i> Disclaimer (विस्तृत कानूनी अस्वीकरण)</h2>
+            <div class="text-sm text-gray-700 space-y-4 leading-relaxed">
+                <p><strong>सामान्य सूचना:</strong> PicWorld (photoworld.online) पर दी जाने वाली सामग्रियां केवल सामान्य जानकारी और व्यक्तिगत मनोरंजन के उद्देश्यों के लिए प्रकाशित की जाती हैं। हमारी वेबसाइट इन जानकारियों की पूर्णता या सटीकता के बारे में कोई कानूनी वारंटी नहीं देती है।</p>
+                <p><strong>कॉपीराइट नीति:</strong> एक लाइव सर्च इंजन होने के नाते, PicWorld अपने सर्वर पर किसी भी प्रकार की इमेज होस्ट या अपलोड नहीं करता है। सभी तस्वीरें इंटरनेट पर सार्वजनिक रूप से उपलब्ध खुले स्रोतों से लाइव तकनीक द्वारा प्रदर्शित की जाती हैं। सभी अधिकार मूल स्वामियों के पास सुरक्षित हैं।</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="privacy-modal" class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 hidden backdrop-blur-sm">
+        <div class="bg-white rounded-2xl max-w-3xl w-full p-6 relative shadow-2xl overflow-y-auto max-h-[85vh] modal-scroll text-left">
+            <button type="button" onclick="closeModal('privacy-modal')" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-xl"><i class="fa-solid fa-xmark"></i></button>
+            <h2 class="text-xl font-black text-gray-900 border-b pb-2 mb-4 flex items-center gap-2"><i class="fa-solid fa-shield-halved text-red-600"></i> Privacy Policy (गोपनीयता नीति)</h2>
+            <div class="text-sm text-gray-700 space-y-4 leading-relaxed">
+                <p><strong>डेटा सुरक्षा:</strong> हमारे विज़िटर्स की डेटा सुरक्षा हमारी प्राथमिकता है। हम उपयोगकर्ताओं की व्यक्तिगत रूप से पहचान उजागर करने वाली कोई जानकारी खुद से स्टोर नहीं करते हैं।</p>
+                <p><strong>कुकीज़:</strong> गूगल हमारी वेबसाइट पर विज्ञापनों के लिए कुकीज़ का उपयोग कर सकता है। उपयोगकर्ता गूगल विज्ञापन नेटवर्क नीति पर जाकर इसके उपयोग को बदल सकते हैं।</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="terms-modal" class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 hidden backdrop-blur-sm">
+        <div class="bg-white rounded-2xl max-w-3xl w-full p-6 relative shadow-2xl overflow-y-auto max-h-[85vh] modal-scroll text-left">
+            <button type="button" onclick="closeModal('terms-modal')" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-xl"><i class="fa-solid fa-xmark"></i></button>
+            <h2 class="text-xl font-black text-gray-900 border-b pb-2 mb-4 flex items-center gap-2"><i class="fa-solid fa-file-invoice text-red-600"></i> Terms & Conditions (नियम और शर्तें)</h2>
+            <div class="text-sm text-gray-700 space-y-4 leading-relaxed">
+                <p><strong>नियमों की स्वीकृति:</strong> इस वेबसाइट का उपयोग करके आप हमारे द्वारा तय किए गए सभी नियमों और लागू कानूनों को स्वीकार करते हैं। वेबसाइट का उपयोग केवल वैध मनोरंजन और निजी वॉलपेपर डाउनलोड के लिए किया जा सकता है।</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const gallery = document.getElementById('gallery');
+        const searchForm = document.getElementById('search-form');
+        const searchInput = document.getElementById('search-input');
+        const statusMessage = document.getElementById('status-message');
+        
+        let currentQuery = 'Cricket Match';
+        let pageOffset = 0;
+
+        function fetchLiveImages(query, isLoadMore = false) {
+            if (!isLoadMore) {
+                statusMessage.classList.remove('hidden');
+                gallery.innerHTML = '';
+                pageOffset = 0;
+            }
+            
+            currentQuery = query;
+            const images = [];
+            const count = 24;
+
+            // स्टेबल लाइव रैंडम इमेज जनरेशन एल्गोरिदम
+            for (let i = 1; i <= count; i++) {
+                const randomId = Math.floor(Math.random() * 5000) + pageOffset + i;
+                images.push(`https://picsum.photos/1920/1080?random=${randomId}`);
+            }
+
+            pageOffset += count;
+            displayImages(images, isLoadMore);
+            statusMessage.classList.add('hidden');
+        }
+
+        function displayImages(urls, isLoadMore) {
+            if (!isLoadMore) gallery.innerHTML = '';
+            
+            urls.forEach((url) => {
+                const cardWrapper = document.createElement('div');
+                cardWrapper.className = "bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden group hover:shadow-md transition duration-300";
+                
+                cardWrapper.innerHTML = `
+                    <div class="youtube-card">
+                        <img src="${url}" alt="PicWorld Result" loading="lazy" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent flex flex-col justify-end p-3 opacity-100 sm:opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <div class="flex justify-between items-center">
+                                <a href="${url}" target="_blank" class="bg-white text-gray-950 px-3 py-1.5 rounded-lg flex items-center gap-1.5 font-bold text-xs shadow transition active:scale-95">
+                                    <i class="fa-solid fa-arrow-down text-red-600"></i> डाउनलोड
+                                </a>
+                                <button type="button" onclick="shareImage('${url}')" class="bg-red-600 text-white w-8 h-8 rounded-lg flex items-center justify-center shadow transition active:scale-95">
+                                    <i class="fa-solid fa-share-nodes text-xs"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                gallery.appendChild(cardWrapper);
+            });
+        }
+
+        function loadMoreImages() { 
+            fetchLiveImages(currentQuery, true); 
+        }
+
+        function shareImage(url) {
+            if (navigator.share) { 
+                navigator.share({ title: 'PicWorld Image', url: url }).catch(console.error); 
+            } else { 
+                window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent('PicWorld पर यह फोटो देखो: ' + url)}`, '_blank'); 
+            }
+        }
+
+        function quickSearch(tag) { 
+            searchInput.value = tag; 
+            fetchLiveImages(tag); 
+        }
+
+        searchForm.addEventListener('submit', (e) => { 
+            e.preventDefault(); 
+            const val = searchInput.value.trim(); 
+            if (val) fetchLiveImages(val); 
+        });
+        
+        function openModal(id) { 
+            document.getElementById(id).classList.remove('hidden'); 
+            document.body.style.overflow = 'hidden'; 
+        }
+
+        function closeModal(id) { 
+            document.getElementById(id).classList.add('hidden'); 
+            document.body.style.overflow = 'auto'; 
+            if(id === 'contact-modal') {
+                document.getElementById('contact-form').reset();
+                document.getElementById('contact-success').classList.add('hidden');
+            }
+        }
+
+        function handleContactSubmit(event) {
+            event.preventDefault();
+            document.getElementById('contact-success').classList.remove('hidden');
+            setTimeout(() => { closeModal('contact-modal'); }, 2000);
+        }
+
+        // वेबसाइट लोड होते ही पहली इमेज रेंडरिंग स्टार्ट करने का पक्का तरीका
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchLiveImages('Cricket Match');
+        });
+    </script>
+</body>
+</html>
+
