@@ -64,7 +64,7 @@
         
         <div id="photo-page-section">
             <div class="flex flex-wrap gap-2 mb-6 justify-center sm:justify-start items-center">
-                <button type="button" onclick="quickSearch('Cricket Match')" class="bg-white hover:bg-red-50 text-gray-700 border border-gray-200 rounded-full px-4 py-1 text-xs font-semibold transition shadow-sm">🏏 क्रिकेट</button>
+                <button type="button" onclick="quickSearch('Cricket Match')" class="bg-white hover:bg-red-50 text-gray-700 border border-gray-200 rounded-full px-4 py-1 text-xs font-semibold transition shadow-sm">👑 क्रिकेट</button>
                 <button type="button" onclick="quickSearch('Suryakumar Yadav')" class="bg-white hover:bg-red-50 text-gray-700 border border-gray-200 rounded-full px-4 py-1 text-xs font-semibold transition shadow-sm">🔥 सूर्या</button>
                 <button type="button" onclick="quickSearch('Nature 4K Wallpaper')" class="bg-white hover:bg-red-50 text-gray-700 border border-gray-200 rounded-full px-4 py-1 text-xs font-semibold transition shadow-sm">🌿 प्रकृति</button>
                 <button type="button" onclick="quickSearch('Supercar')" class="bg-white hover:bg-red-50 text-gray-700 border border-gray-200 rounded-full px-4 py-1 text-xs font-semibold transition shadow-sm">🏎️ कारें</button>
@@ -180,7 +180,7 @@
     <div id="terms-modal" class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 hidden"><div class="bg-white rounded-2xl max-w-xl w-full p-6 relative"><button type="button" onclick="closeModal('terms-modal')" class="absolute top-4 right-4 text-gray-400"><i class="fa-solid fa-xmark"></i></button><h2 class="text-xl font-black mb-4">📝 Terms & Conditions</h2><p class="text-sm text-gray-700">नियम व शर्तें लागू।</p></div></div>
 
     <script>
-        // 🔒 FIREBASE CONFIGURATION (तुम्हारा सुरक्षित डेटाबेस कनेक्शन)
+        // 🔒 FIREBASE CONFIGURATION (डेटाबेस कनेक्शन)
         const firebaseConfig = {
           apiKey: "AIzaSyCglO0vHutINDOWaIWMsv4N9_54dpbPvIo",
           authDomain: "project-8621d575-e2f7-45a2-963.firebaseapp.com",
@@ -207,9 +207,8 @@
         const statusMessage = document.getElementById('status-message');
         const blogGrid = document.getElementById('blog-grid');
         
-        let currentQuery = 'Cricket Match';
-        let pageOffset = 0;
-        let activeBlogId = null;
+        let currentQuery = 'Cricket';
+        let pageOffset = 1;
 
         // 🌟 एडवांस पेज नेविगेशन इंजन (फोटो और ब्लॉग स्विच करने के लिए) 🌟
         function showPage(pageName) {
@@ -217,29 +216,50 @@
             const blogSection = document.getElementById('blog-page-section');
             
             if(pageName === 'blogs') {
-                photoSection.classList.add('hidden'); // फोटो छिपेंगी
-                blogSection.classList.remove('hidden'); // ब्लॉग दिखेंगे
+                photoSection.classList.add('hidden');
+                blogSection.classList.remove('hidden');
             } else {
-                blogSection.classList.add('hidden'); // ब्लॉग छिपेंगे
-                photoSection.classList.remove('hidden'); // फोटो दिखेंगी
+                blogSection.classList.add('hidden');
+                photoSection.classList.remove('hidden');
             }
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // 🖼️ तुम्हारी पुरानी लाइव इमेज लोडिंग (इसने तुम्हारी पुरानी सेटिंग को बिल्कुल सुरक्षित रखा है)
+        // 🖼️ एडवांस लाइव इमेज इंजन (Pixabay API + Picsum Fallback)
         function fetchLiveImages(query, isLoadMore = false) {
             if (statusMessage) statusMessage.classList.remove('hidden');
-            if (!isLoadMore) { gallery.innerHTML = ''; pageOffset = 0; }
+            if (!isLoadMore) { gallery.innerHTML = ''; pageOffset = 1; }
             currentQuery = query;
+
+            // Pixabay API से लाइव इमेज खोजना (Pixabay से तस्वीरें 100% सटीक लोड होंगी)
+            const pixabayUrl = `https://pixabay.com/api/?key=43045648-52fb58f96ce7df6a099b24479&q=${encodeURIComponent(query)}&image_type=photo&per_page=16&page=${pageOffset}`;
             
-            const images = [];
+            fetch(pixabayUrl)
+                .then(res => res.json())
+                .then(data => {
+                    if (data.hits && data.hits.length > 0) {
+                        renderImages(data.hits.map(hit => hit.largeImageURL));
+                    } else {
+                        // अगर Pixabay पर परिणाम न मिले तो बैकअप इमेज इंजन चलाना
+                        loadBackupImages();
+                    }
+                })
+                .catch(() => {
+                    loadBackupImages();
+                });
+        }
+
+        function loadBackupImages() {
+            const backupImages = [];
             for (let i = 1; i <= 16; i++) {
-                const randomId = Math.floor(Math.random() * 5000) + pageOffset + i;
-                images.push(`https://picsum.photos/800/450?random=${randomId}`); // यहाँ तुम्हारी पुरानी API लिंक काम करेगी
+                const randomId = Math.floor(Math.random() * 1000) + (pageOffset * 16) + i;
+                backupImages.push(`https://picsum.photos/800/450?random=${randomId}`);
             }
-            pageOffset += 16;
-            
-            images.forEach((url) => {
+            renderImages(backupImages);
+        }
+
+        function renderImages(imageUrls) {
+            imageUrls.forEach((url) => {
                 const div = document.createElement('div');
                 div.className = "bg-white rounded-xl shadow-sm border overflow-hidden group relative";
                 div.innerHTML = `
@@ -253,6 +273,7 @@
                 gallery.appendChild(div);
             });
             if (statusMessage) statusMessage.classList.add('hidden');
+            pageOffset++;
         }
 
         function loadMoreImages() { fetchLiveImages(currentQuery, true); }
@@ -265,7 +286,7 @@
             if (val) fetchLiveImages(val); 
         });
 
-        // 🔥 लाइव ब्लॉग्स को सर्वर से फेच और रेंडर करना
+        // 🔥 लाइव ब्लॉग्स को सर्वर से फेच करना
         database.ref('blogs').on('value', (snapshot) => {
             const blogLoading = document.getElementById('blog-loading');
             if(blogLoading) blogLoading.classList.add('hidden');
@@ -279,19 +300,4 @@
                 const blog = data[key];
                 const div = document.createElement('div');
                 div.className = "bg-white rounded-2xl border p-3 cursor-pointer hover:border-red-500 transition flex flex-col justify-between shadow-sm";
-                div.setAttribute('onclick', `viewBlogDetail('${key}')`);
-                div.innerHTML = `
-                    <div>
-                        <div class="youtube-card mb-2"><img src="${blog.image}"></div>
-                        <span class="text-[10px] bg-red-50 text-red-600 px-2 py-0.5 rounded font-bold">${blog.tag}</span>
-                        <h3 class="text-sm font-black mt-1 line-clamp-2">${blog.title}</h3>
-                    </div>
-                    <div class="text-[10px] text-gray-400 font-bold mt-3 pt-2 border-t">${blog.date}</div>
-                `;
-                blogGrid.appendChild(div);
-            });
-        });
-
-        // ब्लॉग पूरा खोलकर देखना
-        function viewBlogDetail(id) {
-    
+   
