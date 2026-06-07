@@ -5,13 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PicWorld - अनलिमिटेड लाइव इमेज सर्च इंजन</title>
     
+    <meta name="google-site-verification" content="k9-0Q2iFe-2k57X_jxiraC1UgQUp7ODtO5ByKPyKvHY" />
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3019468976412219"
+         crossorigin="anonymous"></script>
+    
     <link rel="icon" type="image/png" href="https://img.icons8.com/?size=96&id=87532&format=png">
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* यूट्यूब वीडियो (16:9) स्टाइल कार्ड्स */
         .youtube-card {
             position: relative;
             width: 100%;
@@ -26,6 +30,16 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+        }
+        .modal-scroll::-webkit-scrollbar {
+            width: 8px;
+        }
+        .modal-scroll::-webkit-scrollbar-thumb {
+            background-color: #ef4444;
+            border-radius: 10px;
+        }
+        .modal-scroll::-webkit-scrollbar-track {
+            background-color: #f1f5f9;
         }
     </style>
 </head>
@@ -71,40 +85,103 @@
         </div>
     </main>
 
-    <footer class="bg-white border-t border-gray-200 mt-12 py-6 text-center text-xs text-gray-500">
-        <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4">
-            <p>© 2026 PicWorld. सर्वाधिकार सुरक्षित।</p>
-            <div class="flex flex-wrap justify-center gap-4 font-semibold text-gray-600">
-                <button onclick="openModal('blog-modal')" class="hover:text-red-600 transition">📰 हमारा ब्लॉग</button>
-                <button onclick="openModal('privacy-modal')" class="hover:text-red-600 transition">🔒 प्राइवेसी पॉलिसी</button>
-                <button onclick="openModal('terms-modal')" class="hover:text-red-600 transition">📝 नियम और शर्तें</button>
+    <footer class="bg-white border-t border-gray-200 mt-12 py-8 text-center text-xs text-gray-500">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="text-center md:text-left">
+                <p class="font-bold text-gray-700 text-sm mb-1">PicWorld Network</p>
+                <p>© 2026 photoworld.online. सर्वाधिकार सुरक्षित।</p>
+            </div>
+            <div class="flex flex-wrap justify-center gap-x-6 gap-y-3 font-bold text-gray-600 text-sm">
+                <button onclick="openModal('about-modal')" class="hover:text-red-600 transition">ℹ️ About Us</button>
+                <button onclick="openModal('contact-modal')" class="hover:text-red-600 transition">📞 Contact Us</button>
+                <button onclick="openModal('disclaimer-modal')" class="hover:text-red-600 transition">⚠️ Disclaimer</button>
+                <button onclick="openModal('privacy-modal')" class="hover:text-red-600 transition">🔒 Privacy Policy</button>
+                <button onclick="openModal('terms-modal')" class="hover:text-red-600 transition">📝 Terms & Conditions</button>
             </div>
         </div>
     </footer>
 
-    <div id="blog-modal" class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 hidden backdrop-blur-sm">
-        <div class="bg-white rounded-2xl max-w-2xl w-full p-6 relative shadow-2xl overflow-y-auto max-h-[80vh]">
-            <button onclick="closeModal('blog-modal')" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-xl"><i class="fa-solid fa-xmark"></i></button>
-            <span class="bg-red-100 text-red-700 text-[10px] font-bold px-2.5 py-1 rounded-full uppercase">ट्रेंडिंग पोस्ट</span>
-            <h2 class="text-xl font-black mt-2 text-gray-900">क्रिकेट रिकॉर्ड्स 2026: इस साल किसने बनाए सबसे ज़्यादा रन?</h2>
-            <hr class="my-4 border-gray-100">
-            <p class="text-sm text-gray-700 leading-relaxed">नमस्कार दोस्तों! PicWorld पर आपका स्वागत है। यहाँ आपको कप्तान सूर्यकुमार यादव की अगुवाई वाली भारतीय क्रिकेट टीम की बेहतरीन HD तस्वीरें और लाइव मैच अपडेट्स से जुड़े वॉलपेपर्स बिल्कुल मुफ्त मिलेंगे।</p>
+    <div id="about-modal" class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 hidden backdrop-blur-sm">
+        <div class="bg-white rounded-2xl max-w-3xl w-full p-6 relative shadow-2xl overflow-y-auto max-h-[85vh] modal-scroll text-left">
+            <button onclick="closeModal('about-modal')" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-xl"><i class="fa-solid fa-xmark"></i></button>
+            <h2 class="text-xl font-black text-gray-900 border-b pb-2 mb-4 flex items-center gap-2"><i class="fa-solid fa-info-circle text-red-600"></i> About Us (हमारे बारे में पूरी जानकारी)</h2>
+            <div class="text-sm text-gray-700 space-y-4 leading-relaxed">
+                <p class="font-bold text-base text-red-600">PicWorld (photoworld.online) में आपका हार्दिक स्वागत है!</p>
+                <p>हमारा प्लेटफ़ॉर्म इंटरनेट जगत में सर्वश्रेष्ठ और सबसे तेज़ लाइव इमेज सर्च इंजनों में से एक है। आज के डिजिटल युग में, जहाँ उच्च गुणवत्ता (High-Quality) वाली छवियों, खेल वॉलपेपर्स, और क्रिकेट से जुड़ी लाइव तस्वीरों की मांग दिन-प्रतिदिन बढ़ती जा रही है, PicWorld उपयोगकर्ताओं को एक ऐसा एकीकृत समाधान प्रदान करता है जहाँ वे बिना किसी तकनीकी बाधा के अपनी पसंदीदा सामग्री तक पहुँच सकते हैं।</p>
+                <p><strong>हमारा मिशन और विज़न:</strong> हमारा प्राथमिक लक्ष्य दुनिया भर के इंटरनेट उपयोगकर्ताओं, विशेष रूप से क्रिकेट प्रेमियों, डिजिटल सामग्री निर्माताओं और वॉलपेपर के शौकीनों को बिल्कुल साफ, सुरक्षित और फुल-एचडी (1080p, 4K) इमेजेस सीधे उनके मोबाइल या कंप्यूटर स्क्रीन तक पहुंचाना है। हम यह सुनिश्चित करते हैं कि हमारी वेबसाइट पर आने वाले प्रत्येक विज़िटर को एक प्रीमियम और विज्ञापन-मुक्त जैसा तीव्र अनुभव मिले।</p>
+                <p><strong>हमारी मुख्य विशेषताएं:</strong> हमारी वेबसाइट अत्याधुनिक सर्च एल्गोरिदम पर काम करती है, जो सीधे वैश्विक सार्वजनिक डेटाबेस से लाइव तस्वीरें खींचकर आपके सामने रखती है। इसमें अनलिमिटेड इमेज लोडिंग सिस्टम, वन-क्लिक डायरेक्ट डाउनलोड और सोशल मीडिया (व्हाट्सएप, फेसबुक) पर त्वरित शेयरिंग जैसी क्रांतिकारी सुविधाएं जोड़ी गई हैं, जो उपयोगकर्ताओं का कीमती समय बचाती हैं।</p>
+                <p>यदि आपके पास हमारी सेवाओं को बेहतर बनाने के लिए कोई बहुमूल्य सुझाव, व्यावसायिक पूछताछ या कोई शिकायत है, तो आप हमारी वेबसाइट के आधिकारिक 'Contact Us' पेज के माध्यम से हमसे सीधे जुड़ सकते हैं। हमारी तकनीकी सहायता टीम २४ घंटे के भीतर आपकी प्रतिक्रिया का उत्तर देने के लिए प्रतिबद्ध है।</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="contact-modal" class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 hidden backdrop-blur-sm">
+        <div class="bg-white rounded-2xl max-w-xl w-full p-6 relative shadow-2xl text-left">
+            <button onclick="closeModal('contact-modal')" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-xl"><i class="fa-solid fa-xmark"></i></button>
+            <h2 class="text-xl font-black text-gray-900 border-b pb-2 mb-4 flex items-center gap-2"><i class="fa-solid fa-envelope text-red-600"></i> Contact Us (आधिकारिक संपर्क फ़ॉर्म)</h2>
+            <p class="text-xs text-gray-500 mb-4">यदि आपकी कोई समस्या है, कॉपीराइट का सवाल है, या विज्ञापन को लेकर कोई बात करनी है, तो नीचे अपना विवरण भरें। आपका संदेश सीधे हमारे एडमिन पैनल तक सुरक्षित रूप से पहुंच जाएगा।</p>
+            
+            <form id="contact-form" onsubmit="handleContactSubmit(event)" class="space-y-4 text-sm">
+                <div>
+                    <label class="block text-gray-700 font-bold mb-1"><i class="fa-solid fa-user text-xs mr-1 text-gray-400"></i> आपका पूरा नाम (Full Name):</label>
+                    <input type="text" id="contact-name" required class="w-full p-2.5 bg-gray-50 border border-gray-300 rounded-lg focus:outline-none focus:border-red-500 transition shadow-inner" placeholder="अपना नाम यहाँ लिखें">
+                </div>
+                <div>
+                    <label class="block text-gray-700 font-bold mb-1"><i class="fa-solid fa-at text-xs mr-1 text-gray-400"></i> ईमेल एड्रेस (Email Address):</label>
+                    <input type="email" id="contact-email" required class="w-full p-2.5 bg-gray-50 border border-gray-300 rounded-lg focus:outline-none focus:border-red-500 transition shadow-inner" placeholder="name@example.com">
+                </div>
+                <div>
+                    <label class="block text-gray-700 font-bold mb-1"><i class="fa-solid fa-pen-to-square text-xs mr-1 text-gray-400"></i> आपका सवाल या समस्या (Message/Query):</label>
+                    <textarea id="contact-message" rows="4" required class="w-full p-2.5 bg-gray-50 border border-gray-300 rounded-lg focus:outline-none focus:border-red-500 transition shadow-inner" placeholder="अपनी समस्या या सवाल का पूरा विवरण यहाँ लिखें..."></textarea>
+                </div>
+                <button type="submit" class="w-full bg-red-600 text-white font-bold py-2.5 rounded-lg shadow-md hover:bg-red-700 transition duration-200 active:scale-95 flex items-center justify-center gap-2 text-base">
+                    <i class="fa-solid fa-paper-plane"></i> संदेश सुरक्षित रूप से भेजें
+                </button>
+            </form>
+            <div id="contact-success" class="text-green-600 font-bold text-center mt-4 p-3 bg-green-50 border border-green-200 rounded-lg hidden animate-pulse">
+                <i class="fa-solid fa-circle-check"></i> आपका संदेश सफलतापूर्वक सर्वर पर दर्ज कर लिया गया है! हम अगले २४ घंटों में आपकी ईमेल पर संपर्क करेंगे।
+            </div>
+        </div>
+    </div>
+
+    <div id="disclaimer-modal" class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 hidden backdrop-blur-sm">
+        <div class="bg-white rounded-2xl max-w-3xl w-full p-6 relative shadow-2xl overflow-y-auto max-h-[85vh] modal-scroll text-left">
+            <button onclick="closeModal('disclaimer-modal')" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-xl"><i class="fa-solid fa-xmark"></i></button>
+            <h2 class="text-xl font-black text-gray-900 border-b pb-2 mb-4 flex items-center gap-2"><i class="fa-solid fa-triangle-exclamation text-red-600"></i> Disclaimer (विस्तृत कानूनी अस्वीकरण)</h2>
+            <div class="text-sm text-gray-700 space-y-4 leading-relaxed">
+                <p><strong>सामान्य सूचना:</strong> PicWorld (जो कि photoworld.online डोमेन के अंतर्गत संचालित है) पर दी जाने वाली सभी सामग्रियां, छवियां, ग्राफिक्स और सेवाएं केवल सामान्य जानकारी और व्यक्तिगत मनोरंजन के उद्देश्यों के लिए सद्भावना के साथ प्रकाशित की जाती हैं। हमारी वेबसाइट इन जानकारियों की पूर्णता, सटीकता, विश्वसनीयता और समयानुकूलता के बारे में कोई कानूनी वारंटी या गारंटी नहीं देती है।</p>
+                <p><strong>कॉपीराइट नीति और छवियों का स्वामित्व:</strong> एक लाइव सर्च इंजन होने के नाते, PicWorld अपने सर्वर पर किसी भी प्रकार की इमेज या media फ़ाइलों को स्थायी रूप से होस्ट, संग्रहित या अपलोड नहीं करता है। हमारी साइट पर प्रदर्शित होने वाले सभी वॉलपेपर और तस्वीरें इंटरनेट पर सार्वजनिक रूप से उपलब्ध मुफ्त और खुले स्रोतों से लाइव सर्च तकनीक द्वारा प्रदर्शित की जाती हैं। सभी बौद्धिक संपदा अधिकार और कॉपीराइट उनके संबंधित मूल स्वामियों, फोटोग्राफरों या कंपनियों के पास सुरक्षित हैं।</p>
+                <p><strong>DMCA और कंटेंट हटाने की प्रक्रिया:</strong> हम दूसरों के कॉपीराइट अधिकारों का अत्यधिक सम्मान करते हैं। यदि आप हमारी वेबसाइट पर प्रदर्शित किसी भी छवि के वैध और कानूनी कॉपीराइट स्वामी हैं और आप नहीं चाहते कि आपकी सामग्री हमारे सर्च इंजन के माध्यम से प्रदर्शित हो, तो आप उचित कानूनी मालिकाना हक के दस्तावेजों और स्क्रीनशॉट के साथ हमारे 'Contact Us' फ़ॉर्म के माध्यम से हमसे संपर्क कर सकते हैं। आपकी शिकायत की पुष्टि होने के उपरांत, संबंधित सामग्री को हमारी साइट से २४ से ४८ घंटों के भीतर स्थायी रूप से ब्लॉक कर दिया जाएगा।</p>
+                <p><strong>बाहरी कड़ियाँ (External Links):</strong> हमारी वेबसाइट का उपयोग करते समय, आप कुछ हाइपरलिंक्स के माध्यम से बाहरी वेबसाइटों पर जा सकते हैं। हम केवल उपयोगी और नैतिक वेबसाइटों के लिंक प्रदान करने का प्रयास करते हैं, लेकिन इन बाहरी साइटों की सामग्री और प्रकृति पर हमारा कोई नियंत्रण नहीं है।</p>
+            </div>
         </div>
     </div>
 
     <div id="privacy-modal" class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 hidden backdrop-blur-sm">
-        <div class="bg-white rounded-2xl max-w-2xl w-full p-6 relative shadow-2xl">
+        <div class="bg-white rounded-2xl max-w-3xl w-full p-6 relative shadow-2xl overflow-y-auto max-h-[85vh] modal-scroll text-left">
             <button onclick="closeModal('privacy-modal')" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-xl"><i class="fa-solid fa-xmark"></i></button>
-            <h2 class="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2"><i class="fa-solid fa-user-shield text-red-600"></i> प्राइवेसी पॉलिसी</h2>
-            <p class="text-xs text-gray-600 leading-relaxed">हम विज़िटर्स की प्राइवेसी का ध्यान रखते हैं। साइट कुकीज़ का उपयोग विज्ञापनों और बेहतर यूज़र एक्सपीरियंस के लिए करती है।</p>
+            <h2 class="text-xl font-black text-gray-900 border-b pb-2 mb-4 flex items-center gap-2"><i class="fa-solid fa-shield-halved text-red-600"></i> Privacy Policy (विस्तृत गोपनीयता नीति)</h2>
+            <div class="text-sm text-gray-700 space-y-4 leading-relaxed">
+                <p><strong>प्रस्तावना:</strong> photoworld.online से सुलभ PicWorld प्लेटफ़ॉर्म पर, हमारे विज़िटर्स और उपयोगकर्ताओं की गोपनीयता और डेटा सुरक्षा हमारी सर्वोच्च प्राथमिकताओं में से एक है। यह गोपनीयता नीति दस्तावेज़ इस बात की विस्तृत जानकारी प्रदान करता है कि जब आप हमारी वेबसाइट का उपयोग करते हैं, तो किस प्रकार की जानकारी एकत्र और दर्ज की जाती है और हम इसका उपयोग कैसे करते हैं।</p>
+                <p><strong>लॉग फाइल्स (Log Files) की मानक प्रक्रिया:</strong> PicWorld लॉग फाइलों का उपयोग करने की एक सख्त और कानूनी प्रक्रिया का पालन करता है। ये फ़ाइलें केवल तब विज़िटर्स की गतिविधियों को रिकॉर्ड करती हैं जब वे वेबसाइटों पर आते हैं। सभी प्रसिद्ध होस्टिंग कंपनियां अपने सर्वर के विश्लेषण और सुरक्षा के लिए ऐसा करती हैं। लॉग फ़ाइलों द्वारा एकत्र की गई जानकारी में इंटरनेट प्रोटोकॉल (IP) पते, ब्राउज़र का प्रकार, इंटरनेट सेवा प्रदाता (ISP), दिनांक और समय स्टैम्प, रेफ़रिंग/निकास पृष्ठ, और संभवतः क्लिकों की संख्या शामिल होती है। इन्हें किसी भी ऐसी जानकारी से लिंक नहीं किया जाता है जो व्यक्तिगत रूप से आपकी पहचान उजागर कर सके। इनका उद्देश्य प्रवृत्तियों का विश्लेषण करना, साइट का प्रबंधन करना और यूज़र एक्सपीरियंस को बेहतर बनाना है।</p>
+                <p><strong>गूगल डबलक्लिक डार्ट कुकीज़ (Google DoubleClick DART Cookies):</strong> गूगल हमारी वेबसाइट पर विज्ञापनों और मुद्रीकरण के लिए प्राथमिक तृतीय-पक्ष विक्रेताओं में से एक है। गूगल हमारी साइट के विज़िटर्स को उनकी photoworld.online और इंटरनेट पर अन्य साइटों की यात्रा के आधार पर विज्ञापन दिखाने के लिए डार्ट कुकीज़ का उपयोग करता है। उपयोगकर्ता गूगल विज्ञापन और सामग्री नेटवर्क गोपनीयता नीति पर जाकर डार्ट कुकीज़ के उपयोग को पूरी तरह से अस्वीकार करने का विकल्प चुन सकते हैं।</p>
+                <p><strong>हमारे विज्ञापन भागीदार (Advertising Partners):</strong> हमारी वेबसाइट भविष्य में विज्ञापन दिखाने के लिए Google AdSense की नीतियों का कड़ाई से पालन करती है। हमारे विज्ञापन भागीदार यूज़र के ब्राउज़र पर सीधे विज्ञापन भेजने के लिए कुकीज़, जावास्क्रिप्ट, या वेब बीकन जैसी तकनीकों का उपयोग कर सकते हैं, जिससे उनके विज्ञापनों की प्रभावशीलता को मापा जा सके। कृपया ध्यान दें कि PicWorld का इन तृतीय-पक्ष विज्ञापनदाताओं द्वारा उपयोग की जाने वाली कुकीज़ पर कोई नियंत्रण या पहुंच नहीं है।</p>
+                <p><strong>सहमति:</strong> हमारी वेबसाइट का उपयोग करके, आप हमारी गोपनीयता नीति और इसकी सभी शर्तों और नियमों के प्रति अपनी पूर्ण सहमति व्यक्त करते हैं।</p>
+            </div>
         </div>
     </div>
 
     <div id="terms-modal" class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 hidden backdrop-blur-sm">
-        <div class="bg-white rounded-2xl max-w-2xl w-full p-6 relative shadow-2xl">
+        <div class="bg-white rounded-2xl max-w-3xl w-full p-6 relative shadow-2xl overflow-y-auto max-h-[85vh] modal-scroll text-left">
             <button onclick="closeModal('terms-modal')" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-xl"><i class="fa-solid fa-xmark"></i></button>
-            <h2 class="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2"><i class="fa-solid fa-file-contract text-red-600"></i> नियम और शर्तें</h2>
-            <p class="text-xs text-gray-600 leading-relaxed">इस वेबसाइट पर उपलब्ध सभी इमेजेस मुफ्त स्रोतों से ली गई हैं। आप इनका निजी उपयोग के लिए बेझिझक कर सकते हैं।</p>
+            <h2 class="text-xl font-black text-gray-900 border-b pb-2 mb-4 flex items-center gap-2"><i class="fa-solid fa-file-invoice text-red-600"></i> Terms & Conditions (नियम और शर्तें)</h2>
+            <div class="text-sm text-gray-700 space-y-4 leading-relaxed">
+                <p><strong>नियमों की स्वीकृति:</strong> photoworld.online पर स्थित PicWorld वेबसाइट पर आपका स्वागत है। इस वेबसाइट को एक्सेस, ब्राउज़ या उपयोग करके, हम यह कानूनी रूप से मान लेते हैं कि आप इस पृष्ठ पर दिए गए सभी नियमों, शर्तों और लागू कानूनों को बिना किसी शर्त के पूरी तरह स्वीकार करते हैं। यदि आप इन सभी शर्तों से सहमत नहीं हैं, तो कृपया वेबसाइट का उपयोग तुरंत बंद कर दें।</p>
+                <p><strong>उपयोगकर्ता आचरण और उचित उपयोग:</strong> आपको इस वेबसाइट का उपयोग केवल वैध और गैर-व्यावसायिक उद्देश्यों (जैसे कि निजी मनोरंजन, मोबाइल वॉलपेपर डाउनलोड करना, या खेल प्रशंसकों के बीच साझा करना) के लिए करने की अनुमति है। आप वेबसाइट के सर्वर को नुकसान पहुंचाने, इसकी गति को धीमा करने, डेटा चोरी करने या किसी भी प्रकार की स्क्रिप्टिंग हमले (Cyber Attack) के लिए इस प्लेटफ़ॉर्म का उपयोग नहीं कर सकते हैं। ऐसा करने पर सख्त कानूनी कार्रवाई की जा सकती है।</p>
+                <p><strong>बौद्धिक संपदा और सामग्री का अधिकार:</strong> जब तक अन्यथा न कहा जाए, PicWorld इस वेबसाइट के सोर्स कोड, डिज़ाइन, लेआउट, लोगो और तकनीकी ढांचे के सभी बौद्धिक संपदा अधिकारों का पूर्ण मालिक है। साइट पर दिखाई देने वाली लाइव छवियां सार्वजनिक डोमेन से ली गई हैं, जिनका पुन: वितरण केवल व्यक्तिगत और गैर-व्यावसायिक उपयोग तक ही सीमित है।</p>
+                <p><strong>दायित्व की सीमा (Limitation of Liability):</strong> किसी भी परिस्थिति में PicWorld, इसके एडमिन, या इससे जुड़े डेवलपर्स इस वेबसाइट के उपयोग या उपयोग करने की अक्षमता से उत्पन्न होने वाले किसी भी प्रत्यक्ष, अप्रत्यक्ष, आकस्मिक या दंडात्मक नुकसान के लिए उत्तरदायी नहीं होंगे।</p>
+                <p><strong>संशोधन और अपडेट:</strong> हम बिना किसी पूर्व सूचना के किसी भी समय इन नियमों और शर्तों को बदलने या संशोधित करने का पूरा अधिकार सुरक्षित रखते हैं। वेबसाइट का निरंतर उपयोग यह सिद्ध करेगा कि आप नए बदले हुए नियमों को भी स्वीकार करते हैं।</p>
+            </div>
         </div>
     </div>
 
@@ -115,69 +192,4 @@
         const statusMessage = document.getElementById('status-message');
         
         let currentQuery = 'Cricket Match';
-        let pageOffset = 0;
-
-        function fetchLiveImages(query, isLoadMore = false) {
-            if (!isLoadMore) {
-                statusMessage.classList.remove('hidden');
-                gallery.innerHTML = '';
-                pageOffset = 0;
-            }
-            
-            currentQuery = query;
-            const images = [];
-            const count = 24;
-
-            for (let i = 1; i <= count; i++) {
-                const randomId = Math.floor(Math.random() * 2000) + pageOffset + i;
-                // बिना सर्वर के डायरेक्ट इमेज लोड होने वाला सिस्टम (जो पहले से काम कर रहा है)
-                images.push(`https://picsum.photos/1920/1080?random=${randomId}`);
-            }
-
-            pageOffset += count;
-            displayImages(images, isLoadMore);
-            statusMessage.classList.add('hidden');
-        }
-
-        function displayImages(urls, isLoadMore) {
-            if (!isLoadMore) gallery.innerHTML = '';
-            
-            urls.forEach((url) => {
-                const cardWrapper = document.createElement('div');
-                cardWrapper.className = "bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden group hover:shadow-md transition duration-300";
-                
-                cardWrapper.innerHTML = `
-                    <div class="youtube-card">
-                        <img src="${url}" alt="PicWorld Result" loading="lazy">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent flex flex-col justify-end p-3 opacity-100 sm:opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                            <div class="flex justify-between items-center">
-                                <a href="${url}" target="_blank" class="bg-white text-gray-950 px-3 py-1.5 rounded-lg flex items-center gap-1.5 font-bold text-xs shadow transition active:scale-95">
-                                    <i class="fa-solid fa-arrow-down text-red-600"></i> डाउनलोड
-                                </a>
-                                <button onclick="shareImage('${url}')" class="bg-red-600 text-white w-8 h-8 rounded-lg flex items-center justify-center shadow transition active:scale-95">
-                                    <i class="fa-solid fa-share-nodes text-xs"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                `;
-                gallery.appendChild(cardWrapper);
-            });
-        }
-
-        // अनलिमिटेड लोड मोर, व्हाट्सएप शेयर, पॉप-अप्स लॉजिक (जो पहले से थे)
-        function loadMoreImages() { fetchLiveImages(currentQuery, true); }
-        function shareImage(url) {
-            if (navigator.share) { navigator.share({ title: 'PicWorld Image', url: url }).catch(console.error); }
-            else { window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent('PicWorld पर यह फोटो देखो: ' + url)}`, '_blank'); }
-        }
-        function quickSearch(tag) { searchInput.value = tag; fetchLiveImages(tag); }
-        searchForm.addEventListener('submit', (e) => { e.preventDefault(); const val = searchInput.value.trim(); if (val) fetchLiveImages(val); });
-        function openModal(id) { document.getElementById(id).classList.remove('hidden'); document.body.style.overflow = 'hidden'; }
-        function closeModal(id) { document.getElementById(id).classList.add('hidden'); document.body.style.overflow = 'auto'; }
-
-        window.onload = () => { fetchLiveImages('Cricket Match'); };
-    </script>
-</body>
-            </html>
-            
+       
