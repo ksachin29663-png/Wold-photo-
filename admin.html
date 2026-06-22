@@ -3,52 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Photo World Online - Admin Panel</title>
+    <title>Photo World Online - Secure Control Panel</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        /* एडमिन के लिए कुछ खास एक्स्ट्रा स्टाइल्स */
+        .preview-box {
+            margin-top: 20px;
+            border: 2px dashed #ff0055;
+            padding: 15px;
+            border-radius: 12px;
+            background: #fff5f8;
+        }
+        .preview-title {
+            font-size: 12px;
+            color: #ff0055;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+    </style>
 </head>
 <body>
 
     <header>
-        <h1 style="color: #0f0f0f;">Admin Panel</h1>
+        <div class="logo">Master Control Room</div>
     </header>
 
     <main class="feed-container">
-        <div class="admin-form">
-            <h2 style="margin-bottom: 20px; font-size: 18px;">नयी फोटो और कहानी जोड़ें</h2>
+        
+        <div id="lock-screen" class="admin-form">
+            <h2 style="margin-bottom: 10px; font-size: 18px; text-align: center;">⚡ एडमिन वेरिफिकेशन</h2>
+            <p style="font-size: 13px; color: #606060; text-align: center; margin-bottom: 20px;">आगे बढ़ने के लिए अपना सीक्रेट मास्टर ईमेल दर्ज करें।</p>
+            <div class="form-group">
+                <label>मास्टर ईमेल एड्रेस</label>
+                <input type="email" id="admin-email-input" placeholder="ksachin20663@gmail.com" required>
+            </div>
+            <button class="btn-submit" onclick="verifyAdminEmail()">वेरीफाई और अनलॉक करें</button>
+        </div>
+
+        <div id="admin-main-form" class="admin-form" style="display: none;">
+            <h2 style="margin-bottom: 20px; font-size: 18px; color: #0f0f0f;">नयी फोटो और कहानी लाइव करें</h2>
+            
             <form id="upload-form">
                 <div class="form-group">
-                    <label>फोटो खींचें या अपलोड करें</label>
+                    <label>फोटो खींचें या चुनें</label>
                     <input type="file" id="post-image" accept="image/*" required>
                 </div>
+                
                 <div class="form-group">
-                    <label>शीर्षक / क्या फोटो है?</label>
-                    <input type="text" id="post-title" placeholder="जैसे: खूबसूरत उगता हुआ सूरज" required>
+                    <label>शीर्षक (Title) - <span style="color: blue;">लाइव एडिट चालू है</span></label>
+                    <input type="text" id="post-title" placeholder="जैसे: खूबसूरत शाम" required>
                 </div>
+                
                 <div class="form-group">
-                    <label>लोकेशन / कहाँ की फोटो है?</label>
-                    <input type="text" id="post-location" placeholder="जैसे: हजरतगंज, लखनऊ" required>
+                    <label>लोकेशन (📍 कहाँ की फोटो है?)</label>
+                    <input type="text" id="post-location" placeholder="जैसे: लखनऊ, उत्तर प्रदेश" required>
                 </div>
+                
                 <div class="form-group">
-                    <label>इस जगह के बारे में लिखें (कैसी है?)</label>
-                    <textarea id="post-desc" rows="5" placeholder="यहाँ अपना पूरा अनुभव या कहानी लिखें..." required></textarea>
+                    <label>इसके बारे में लिखें (कहानी/अनुभव) - <span style="color: blue;">लाइव एडिट चालू है</span></label>
+                    <textarea id="post-desc" rows="5" placeholder="यहाँ अपनी कहानी टाइप करें..." required></textarea>
                 </div>
-                <button type="submit" class="btn-submit" id="submit-btn">वेबसाइट पर लाइव करें</button>
+                
+                <div class="preview-box">
+                    <div class="preview-title">👁️ लाइव पोस्ट प्रीव्यू (जैसा वेबसाइट पर दिखेगा)</div>
+                    <div class="post-card" style="margin-bottom: 0; box-shadow: none;">
+                        <div class="card-header" style="padding: 8px 12px;">
+                            <div class="author-info">
+                                <div class="post-title" id="live-preview-title" style="color: #ff0055;">शीर्षक यहाँ दिखेगा...</div>
+                                <div class="post-location" id="live-preview-location">📍 लोकेशन यहाँ दिखेगी</div>
+                            </div>
+                        </div>
+                        <div class="post-details" style="padding: 12px;">
+                            <p class="post-description" id="live-preview-desc" style="color: #555;">आपकी कहानी का लाइव प्रीव्यू यहाँ दिखेगा...</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn-submit" id="submit-btn" style="margin-top: 20px; background: #0f0f0f;">वेबसाइट पर लाइव करें</button>
             </form>
         </div>
     </main>
 
-    <nav class="bottom-nav">
-        <a href="index.html" class="nav-item">
-            <span class="nav-icon">🏠</span>
-            <span>होम</span>
-        </a>
-        <a href="admin.html" class="nav-item active">
-            <span class="nav-icon">➕</span>
-            <span>पोस्ट करें</span>
-        </a>
-    </nav>
-
     <script src="app.js"></script>
 </body>
-</html>
+                    </html>
+                    
