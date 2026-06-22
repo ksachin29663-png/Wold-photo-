@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photo World Online - Admin Panel</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+
+    <header>
+        <h1 style="color: #0f0f0f;">Admin Panel</h1>
+    </header>
+
+    <main class="feed-container">
+        <div class="admin-form">
+            <h2 style="margin-bottom: 20px; font-size: 18px;">नयी फोटो और कहानी जोड़ें</h2>
+            <form id="upload-form">
+                <div class="form-group">
+                    <label>फोटो खींचें या अपलोड करें</label>
+                    <input type="file" id="post-image" accept="image/*" required>
+                </div>
+                <div class="form-group">
+                    <label>शीर्षक / क्या फोटो है?</label>
+                    <input type="text" id="post-title" placeholder="जैसे: खूबसूरत उगता हुआ सूरज" required>
+                </div>
+                <div class="form-group">
+                    <label>लोकेशन / कहाँ की फोटो है?</label>
+                    <input type="text" id="post-location" placeholder="जैसे: हजरतगंज, लखनऊ" required>
+                </div>
+                <div class="form-group">
+                    <label>इस जगह के बारे में लिखें (कैसी है?)</label>
+                    <textarea id="post-desc" rows="5" placeholder="यहाँ अपना पूरा अनुभव या कहानी लिखें..." required></textarea>
+                </div>
+                <button type="submit" class="btn-submit" id="submit-btn">वेबसाइट पर लाइव करें</button>
+            </form>
+        </div>
+    </main>
+
+    <nav class="bottom-nav">
+        <a href="index.html" class="nav-item">
+            <span class="nav-icon">🏠</span>
+            <span>होम</span>
+        </a>
+        <a href="admin.html" class="nav-item active">
+            <span class="nav-icon">➕</span>
+            <span>पोस्ट करें</span>
+        </a>
+    </nav>
+
+    <script src="app.js"></script>
+</body>
+</html>
