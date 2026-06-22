@@ -3,79 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Photo World Online - Admin Panel</title>
+    <title>एडमिन पैनल - Photo World Online</title>
+    
     <link rel="stylesheet" href="style.css">
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
 </head>
 <body>
 
     <header>
-        <div class="logo">Master Control Room</div>
+        <div class="logo">Photo World - एडमिन कंट्रोल</div>
     </header>
 
-    <main class="feed-container">
+    <main class="admin-container" style="max-width: 500px; margin: 30px auto; padding: 20px; background: #fff; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
         
-        <div id="lock-screen" class="admin-form">
-            <h2 style="margin-bottom: 10px; font-size: 18px; text-align: center;">⚡ एडमिन वेरिफिकेशन</h2>
-            <p style="font-size: 13px; color: #606060; text-align: center; margin-bottom: 20px;">आगे बढ़ने के लिए अपना सीक्रेट मास्टर ईमेल दर्ज करें।</p>
-            
-            <div class="form-group">
-                <label>मास्टर ईमेल एड्रेस</label>
-                <input type="email" id="admin-email-input" placeholder="example@email.com" required>
+        <div id="auth-box">
+            <h2 style="text-align: center; margin-bottom: 20px; color: #333;">🔒 एडमिन वेरिफिकेशन</h2>
+            <p style="font-size: 14px; color: #666; text-align: center; margin-bottom: 20px;">वेबसाइट को अनलॉक करने के लिए अपनी सीक्रेट एडमिन ईमेल डालें।</p>
+            <div class="form-group" style="margin-bottom: 15px;">
+                <input type="email" id="admin-email" placeholder="अपनी ईमेल यहाँ लिखें..." style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 16px; box-sizing: border-box;">
             </div>
-            <button class="btn-submit" type="button" onclick="verifyAdminEmail()">वेरीफाई और अनलॉक करें</button>
+            <button onclick="verifyAdmin()" style="width: 100%; padding: 12px; background: #000; color: #fff; border: none; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer;">वेरीफाई और अनलॉक करें</button>
         </div>
 
-        <div id="admin-main-form" class="admin-form" style="display: none;">
-            <h2 style="margin-bottom: 20px; font-size: 18px; color: #0f0f0f;">नयी फोटो और कहानी लाइव करें</h2>
-            
+        <div id="upload-box" style="display: none;">
+            <h2 style="text-align: center; margin-bottom: 20px; color: #222;">📸 नई पोस्ट लाइव करें</h2>
             <form id="upload-form">
-                <div class="form-group">
-                    <label>फोटो खींचें या चुनें</label>
-                    <input type="file" id="post-image" accept="image/*" required>
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <label style="display: block; margin-bottom: 5px; font-weight: bold; color: #444;">एक फोटो चुनें:</label>
+                    <input type="file" id="post-image" accept="image/*" required style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box;">
                 </div>
-                
-                <div class="form-group">
-                    <label>शीर्षक (Title)</label>
-                    <input type="text" id="post-title" placeholder="जैसे: खूबसूरत शाम" required>
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <label style="display: block; margin-bottom: 5px; font-weight: bold; color: #444;">शीर्षक (Title):</label>
+                    <input type="text" id="post-title" required placeholder="पोस्ट का नाम लिखें..." style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box;">
                 </div>
-                
-                <div class="form-group">
-                    <label>लोकेशन (📍 कहाँ की फोटो है?)</label>
-                    <input type="text" id="post-location" placeholder="जैसे: लखनऊ, उत्तर प्रदेश" required>
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <label style="display: block; margin-bottom: 5px; font-weight: bold; color: #444;">लोकेशन (Location):</label>
+                    <input type="text" id="post-location" placeholder="जैसे: Lucknow, Uttar Pradesh" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box;">
                 </div>
-                
-                <div class="form-group">
-                    <label>इसके बारे में लिखें (कहानी/अनुभव)</label>
-                    <textarea id="post-desc" rows="5" placeholder="यहाँ अपनी कहानी टाइप करें..." required></textarea>
+                <div class="form-group" style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 5px; font-weight: bold; color: #444;">विवरण (Description):</label>
+                    <textarea id="post-desc" rows="4" placeholder="इस फोटो के बारे में कुछ लिखें..." style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; resize: none;"></style></textarea>
                 </div>
-                
-                <button type="submit" class="btn-submit" id="submit-btn" style="background: #0f0f0f;">वेबसाइट पर लाइव करें</button>
+                <button type="submit" id="submit-btn" style="width: 100%; padding: 14px; background: #28a745; color: #fff; border: none; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer;">वेबीसाइट पर लाइव करें</button>
             </form>
         </div>
+
     </main>
 
+    <script src="app.js"></script>
     <script>
-        function verifyAdminEmail() {
-            // 1. इनपुट बॉक्स से ईमेल उठाओ
-            const inputField = document.getElementById("admin-email-input");
-            const userEnteredEmail = inputField.value.trim().toLowerCase();
-            
-            // 2. तुम्हारी वह खास सीक्रेट ईमेल जो कोड के अंदर सेव है
-            const SECRET_MASTER_EMAIL = "ksachin29663@gmail.com"; 
+        // मास्टर एडमिन ईमेल चेकर फंक्शन
+        function verifyAdmin() {
+            const emailInput = document.getElementById("admin-email").value.trim();
+            const masterEmail = "ksachin29663@gmail.com";
 
-            // 3. यहाँ है असली दिमाग - ईमेल मैच करना
-            if (userEnteredEmail === SECRET_MASTER_EMAIL) {
-                // अगर ईमेल मैच हो गई, तो लॉक स्क्रीन छुपाओ और फॉर्म दिखाओ
-                document.getElementById("lock-screen").style.display = "none";
-                document.getElementById("admin-main-form").style.display = "block";
+            if (emailInput === masterEmail) {
+                alert("अनलॉक हो गया! स्वागत है सचिन भाई। 🎉");
+                document.getElementById("auth-box").style.display = "none";
+                document.getElementById("upload-box").style.display = "block";
             } else {
-                // अगर मैच नहीं हुई, तो एरर दिखाओ
-                alert("💥 एक्सेस डिनाइड! यह ईमेल एडमिन से मैच नहीं करती।");
+                alert("🚨 एक्सेस डिनाइड: यह ईमेल एडमिन लिस्ट में नहीं है!");
             }
         }
     </script>
-
-    <script src="app.js"></script>
 </body>
 </html>
