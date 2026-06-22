@@ -19,17 +19,21 @@
         <div class="loading">सुपरफास्ट एल्गोरिदम फीड लोड हो रही है...</div>
     </main>
 
-    <nav class="bottom-nav">
-        <a href="index.html" class="nav-item">
-            <span class="nav-icon">🏠</span>
-            <span>होम</span>
-        </a>
-        <a href="admin.html" class="nav-item">
-            <span class="nav-icon">➕</span>
-            <span>पोस्ट करें</span>
-        </a>
-    </nav>
-
     <script src="app.js"></script>
+
+    <script>
+        // अगर ऐप लोड होते समय कोई भी अंदरूनी जावास्क्रिप्ट एरर आता है,
+        // तो यह स्क्रिप्ट क्रैश होने से बचाएगी और स्क्रीन पर साफ एरर दिखाएगी।
+        window.onerror = function(msg, url, line) {
+            const feed = document.getElementById("posts-feed");
+            if (feed) {
+                feed.innerHTML = `<div style="text-align:center; padding:20px; color:#ff4d4d; font-size:14px;">
+                    ⚙️ सेटअप में कुछ कमी है! कृपया Supabase में कॉलम्स चेक करें।<br>
+                    <small style="color:#888;">(${msg})</small>
+                </div>`;
+            }
+            return true; // पेज को पूरी तरह क्रैश होने से रोकें
+        };
+    </script>
 </body>
 </html>
