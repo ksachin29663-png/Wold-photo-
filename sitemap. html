@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sitemap - PhotoWorld</title>
+<meta name="description" content="Sitemap of PhotoWorld">
+</head>
+<body>
+
+<h1>Sitemap</h1>
+
+<p>
+यह पेज PhotoWorld वेबसाइट के महत्वपूर्ण पृष्ठों और अनुभागों की सूची प्रदान करता है ताकि उपयोगकर्ता आसानी से आवश्यक जानकारी तक पहुँच सकें।
+</p>
+
+<ul>
+<li><a href="index.html">Home</a></li>
+<li><a href="about.html">About Us</a></li>
+<li><a href="contact.html">Contact Us</a></li>
+<li><a href="privacy-policy.html">Privacy Policy</a></li>
+<li><a href="terms-and-conditions.html">Terms & Conditions</a></li>
+<li><a href="disclaimer.html">Disclaimer</a></li>
+<li><a href="cookie-policy.html">Cookie Policy</a></li>
+<li><a href="dmca.html">DMCA Policy</a></li>
+<li><a href="copyright.html">Copyright Policy</a></li>
+<li><a href="sitemap.html">Sitemap</a></li>
+</ul>
+
+<hr>
+
+<p><strong>PhotoWorld</strong> © 2026 All Rights Reserved.</p>
+
+</body>
+</html>
