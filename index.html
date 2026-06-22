@@ -9,18 +9,128 @@
     
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-storage-compat.js"></script>
+
+    <style>
+        /* 🎯 पूरी वेबसाइट का मुख्य थ्री-डॉट और ड्रॉपडाउन स्टाइल */
+        .header-box {
+            background: #fff; 
+            padding: 15px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            border-bottom: 1px solid #eee; 
+            position: sticky; 
+            top: 0; 
+            z-index: 1000;
+        }
+        .main-menu-container {
+            position: relative;
+        }
+        .main-three-dot {
+            cursor: pointer;
+            padding: 5px 12px;
+            font-size: 26px;
+            color: #333;
+            font-weight: bold;
+            user-select: none;
+        }
+        /* 📦 गिटहब की सभी फाइलों को खोलने वाला मुख्य बॉक्स */
+        .main-dropdown {
+            display: none;
+            position: absolute;
+            right: 0px;
+            top: 45px;
+            background-color: #ffffff;
+            min-width: 200px;
+            box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.18);
+            border-radius: 10px;
+            z-index: 9999;
+            border: 1px solid #eaeaea;
+            overflow: hidden;
+        }
+        .main-dropdown a {
+            color: #333333;
+            padding: 12px 18px;
+            text-decoration: none;
+            display: block;
+            font-size: 14px;
+            font-family: sans-serif;
+            font-weight: 500;
+            border-bottom: 1px solid #fcfcfc;
+            text-align: left;
+        }
+        .main-dropdown a:hover {
+            background-color: #f5f5f5;
+            color: #000000;
+        }
+        /* मेनू को दिखाने के लिए स्पेशल क्लास */
+        .open-now {
+            display: block !important;
+        }
+    </style>
 </head>
 <body>
 
-    <header>
-        <div class="logo">Photo World Online</div>
+    <header class="header-box">
+        <div class="logo" style="font-size: 22px; font-weight: bold; font-family: sans-serif;">Photo World Online</div>
+        
+        <div class="main-menu-container">
+            <div class="main-three-dot" onclick="toggleGlobalMenu()">⋮</div>
+            
+            <div id="website-global-menu" class="main-dropdown">
+                <a href="#" onclick="shareWebsiteLink(); return false;">🔗 शेयर करें (Share)</a>
+                <a href="privacy-policy.html">🛡️ Privacy Policy</a>
+                <a href="terms.html">📜 Terms & Conditions</a>
+                <a href="disclaimer.html">⚠️ Disclaimer</a>
+                <a href="dmca.html">🚫 DMCA Policy</a>
+                <a href="copyright.html">©️ Copyright</a>
+                <a href="cookie-policy.html">🍪 Cookie Policy</a>
+                <a href="about.html">ℹ️ About Us</a>
+                <a href="contact.html">📧 Contact Us</a>
+            </div>
+        </div>
     </header>
 
-    <main class="feed-container" id="posts-feed">
-        <div class="loading" id="feed-status">डेटाबेस से जुड़ रहे हैं...</div>
+    <main class="feed-container" id="posts-feed" style="max-width: 600px; margin: 0 auto; padding: 10px 0;">
+        <div style="text-align:center; padding:20px; color:#666;">लोड हो रहा है...</div>
     </main>
+
+    <footer style="background: #f8f9fa; margin-top: 50px; padding: 25px 10px; text-align: center; border-top: 1px solid #eee; font-family: sans-serif;">
+        <p style="font-size: 14px; color: #444; margin-bottom: 5px; font-weight: bold;">&copy; 2026 Photo World Online. सर्वाधिकार सुरक्षित।</p>
+        <p style="font-size: 12px; color: #888;">Owner: Sachin Rajput</p>
+    </footer>
+
+    <script>
+        function toggleGlobalMenu() {
+            const menu = document.getElementById('website-global-menu');
+            if (menu) {
+                menu.classList.toggle('open-now');
+            }
+        }
+
+        function shareWebsiteLink() {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Photo World Online',
+                    url: window.location.href
+                });
+            } else {
+                alert("🔗 वेबसाइट लिंक कॉपी हो गया है!");
+            }
+        }
+        
+        // बाहर कहीं भी क्लिक करने पर मेनू अपने आप बंद हो जाए
+        window.addEventListener('click', function(e) {
+            if (!e.target.matches('.main-three-dot')) {
+                const menu = document.getElementById('website-global-menu');
+                if (menu && menu.classList.contains('open-now')) {
+                    menu.classList.remove('open-now');
+                }
+            }
+        });
+    </script>
 
     <script src="app.js"></script>
 </body>
-</html>
+                    </html>
+    
