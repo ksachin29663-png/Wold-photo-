@@ -1,4 +1,4 @@
-// app.js - Photo World Online Smart Engine
+// app.js - Photo World Online Smart Engine (With Email Lock)
 const SUPABASE_URL = "https://xlysqwrqdltianfcegur.supabase.co";
 const SUPABASE_ANON_KEY = "Sb_publishable_B7LrL0zT69h0cWdsbvNtOQ_aGA6y1ua";
 
@@ -10,23 +10,49 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     if (document.getElementById("upload-form")) {
         setupAdminForm();
+        setupLiveEditor(); // लाइव एडिटिंग प्रीव्यू चालू करने के लिए
     }
 });
 
-// सीक्रेट पिन चेक करने के लिए
-function checkPin() {
-    const pin = document.getElementById("secret-pin").value;
-    const MY_SECRET_PIN = "9988"; // 🌟 यहाँ अपना कोई भी 4 अंकों का सीक्रेट पिन सेट कर लो!
+// 🔐 सीक्रेट मास्टर ईमेल सुरक्षा वेरिफिकेशन
+function verifyAdminEmail() {
+    const inputEmail = document.getElementById("admin-email-input").value.trim().toLowerCase();
+    
+    // 🌟 सचिन, यहाँ उद्धरण चिह्नों (" ") के अंदर अपना वो सीक्रेट ईमेल लिख दो जिससे तुम अनलॉक करना चाहते हो!
+    const MASTER_EMAIL = "sachin@gmail.com"; 
 
-    if (pin === MY_SECRET_PIN) {
+    if (inputEmail === MASTER_EMAIL.toLowerCase()) {
         document.getElementById("lock-screen").style.display = "none";
         document.getElementById("admin-main-form").style.display = "block";
     } else {
-        alert("गलत पिन! आप एडमिन नहीं हैं।");
+        alert("💥 एक्सेस डिनाइड! यह ईमेल एडमिन डेटाबेस से मैच नहीं करता।");
     }
 }
 
-// थ्री-डॉट मेनू चालू-बंद करने के लिए
+// 👁️ लाइव टेक्स्ट एडिटर फंक्शन (टाइप करते ही नीचे चेंज होगा)
+function setupLiveEditor() {
+    const titleInput = document.getElementById("post-title");
+    const locationInput = document.getElementById("post-location");
+    const descInput = document.getElementById("post-desc");
+
+    const previewTitle = document.getElementById("live-preview-title");
+    const previewLocation = document.getElementById("live-preview-location");
+    const previewDesc = document.getElementById("live-preview-desc");
+
+    titleInput.addEventListener("input", () => {
+        previewTitle.innerText = titleInput.value.trim() || "शीर्षक यहाँ दिखेगा...";
+    });
+
+    locationInput.addEventListener("input", () => {
+        previewLocation.innerText = locationInput.value.trim() ? `📍 ${locationInput.value.trim()}` : "📍 लोकेशन यहाँ दिखेगी";
+    });
+
+    descInput.addEventListener("input", () => {
+        previewDesc.innerText = descInput.value.trim() || "आपकी कहानी का लाइव प्रीव्यू यहाँ दिखेगा...";
+    });
+}
+
+// 三 थ्री-डॉट मेनू चालू-बंद करने के लिए
 function toggleMenu(postId) {
     const menu = document.getElementById(`menu-${postId}`);
     document.querySelectorAll('.dropdown-menu').forEach(m => {
@@ -35,22 +61,21 @@ function toggleMenu(postId) {
     menu.classList.toggle('show');
 }
 
-// अलग-अलग अलर्ट दिखाने के लिए फंक्शन
+// थ्री-डॉट के अंदर के बटन्स का एक्शन
 function showAction(type, title, location) {
     if(type === 'disclaimer') {
         alert(`[डिस्क्लेमर]: Photo World Online पर दिखाई गई यह तस्वीर मौलिक है। बिना अनुमति के इसका व्यावसायिक उपयोग वर्जित है।`);
     } else if(type === 'about') {
-        alert(`[अबाउट टास्क]: यह फोटो '${location}' की सुंदरता और संस्कृति को बढ़ावा देने के लिए एडमिन सचिन द्वारा अपलोड की गई है।`);
+        alert(`[अबाउट टास्क]: यह फोटो '${location}' की सुंदरता को बढ़ावा देने के लिए एडमिन सचिन द्वारा अपलोड की गई है।`);
     } else if(type === 'approval') {
         alert(`[अडिशनल अप्रूवल]: Verified Content Tag ✓. यह पोस्ट Photo World Online के सभी सुरक्षा और क्वालिटी मानकों पर पूरी तरह अप्रूव्ड है।`);
     }
 }
 
-// 🚀 वायरल + न्यू पोस्ट मिक्सिंग एल्गोरिदम फीड
+// 🚀 वायरल + न्यू पोस्ट मिक्सिंग एल्गोरिदम फीड (यूजर साइड)
 async function loadSmartFeed() {
     const feedContainer = document.getElementById("posts-feed");
     
-    // डेटाबेस से डेटा लाना
     const { data: posts, error } = await supabase
         .from('posts')
         .select('*');
@@ -65,29 +90,23 @@ async function loadSmartFeed() {
         return;
     }
 
-    // 🔥 एल्गोरिदम लॉजिक: हर पोस्ट को एक स्कोर देना
+    // एल्गोरिदम कैलकुलेशन
     const scoredPosts = posts.map(post => {
         const postTime = new Date(post.created_at).getTime();
         const now = Date.now();
         
-        // 1. टाइम फैक्टर (जितनी नई पोस्ट, उतना ज्यादा स्कोर)
         const hoursAgo = (now - postTime) / (1000 * 60 * 60);
         const freshnessScore = Math.max(0, 100 - hoursAgo * 2); 
 
-        // 2. वायरल फैक्टर (आईडी और शीर्षक की लंबाई के हिसाब से एक रैंडम एंगेजमेंट स्कोर बनाना)
-        // यह सुनिश्चित करता है कि कुछ खास शानदार पोस्ट हमेशा ऊपर बूस्ट होती रहें
         const viralFactor = (post.id % 5 === 0 || post.title.length > 15) ? 40 : 10;
-
-        // टोटल एल्गोरिदम स्कोर
         const totalScore = freshnessScore + viralFactor;
 
         return { ...post, score: totalScore, isTrending: viralFactor > 30 };
     });
 
-    // स्कोर के हिसाब से सॉर्ट करना (हाई स्कोर सबसे ऊपर)
+    // सॉर्टिंग (हाई स्कोर टॉप पर)
     scoredPosts.sort((a, b) => b.score - a.score);
 
-    // स्क्रीन पर रेंडर करना
     feedContainer.innerHTML = "";
     scoredPosts.forEach(post => {
         const card = document.createElement("div");
@@ -117,7 +136,7 @@ async function loadSmartFeed() {
     });
 }
 
-// ADMIN FORM LOGIC (SAME AS BEFORE)
+// ADMIN FORM: UPLOAD AND SAVE TO SUPABASE
 function setupAdminForm() {
     const form = document.getElementById("upload-form");
     const submitBtn = document.getElementById("submit-btn");
@@ -158,7 +177,7 @@ function setupAdminForm() {
 
             if (dbError) throw dbError;
 
-            alert("बधाई हो! आपकी पोस्ट Photo World Online पर लाइव हो चुकी है।");
+            alert("बधाई हो सचिन! आपकी पोस्ट 'Photo World Online' पर सफलतापूर्वक लाइव हो चुकी है।");
             form.reset();
             window.location.href = "index.html";
         } catch (error) {
@@ -168,5 +187,4 @@ function setupAdminForm() {
             submitBtn.innerText = "वेबसाइट पर लाइव करें";
         }
     });
-    }
-            
+}
