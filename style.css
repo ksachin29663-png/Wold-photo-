@@ -1,0 +1,232 @@
+/* style.css - Photo World Online Premium */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    background-color: #f1f3f4;
+    color: #202124;
+    padding-bottom: 70px;
+}
+
+header {
+    background-color: #ffffff;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+header .logo {
+    font-size: 20px;
+    font-weight: 800;
+    color: #0f0f0f;
+    letter-spacing: -0.5px;
+}
+
+.feed-container {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 12px;
+}
+
+.loading {
+    text-align: center;
+    padding: 50px 0;
+    color: #5f6368;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+/* यूट्यूब स्टाइल स्मार्ट पोस्ट कार्ड */
+.post-card {
+    background: #ffffff;
+    margin-bottom: 20px;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    position: relative;
+    border: 1px solid #dadce0;
+}
+
+/* कार्ड का ऊपरी हिस्सा (Header) */
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+}
+
+.author-info .post-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #0f0f0f;
+}
+
+.author-info .post-location {
+    font-size: 12px;
+    color: #5f6368;
+    margin-top: 2px;
+}
+
+/* थ्री डॉट बटन */
+.three-dot-btn {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: #5f6368;
+    padding: 4px 8px;
+}
+
+/* थ्री-डॉट ड्रॉपडाउन मेनू */
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 45px;
+    right: 16px;
+    background: #ffffff;
+    border: 1px solid #dadce0;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    z-index: 10;
+    width: 160px;
+}
+
+.dropdown-menu.show {
+    display: block;
+}
+
+.dropdown-item {
+    padding: 10px 14px;
+    font-size: 13px;
+    color: #3c4043;
+    cursor: pointer;
+    border-bottom: 1px solid #f1f3f4;
+}
+
+.dropdown-item:last-child {
+    border-bottom: none;
+}
+
+.dropdown-item:hover {
+    background-color: #f8f9fa;
+}
+
+/* पोस्ट इमेज */
+.post-image-box img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* पोस्ट का डिस्क्रिप्शन */
+.post-details {
+    padding: 16px;
+}
+
+.post-description {
+    font-size: 14px;
+    color: #3c4043;
+    line-height: 1.5;
+}
+
+/* वायरल / ट्रेंडिंग टैग */
+.trending-tag {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    background: linear-gradient(45deg, #ff007f, #ff0000);
+    color: white;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+/* बॉटम नेविगेशन */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background-color: #ffffff;
+    border-top: 1px solid #dadce0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.nav-item {
+    text-decoration: none;
+    color: #0f0f0f;
+    font-size: 12px;
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.nav-icon {
+    font-size: 22px;
+    margin-bottom: 2px;
+}
+
+/* एडमिन फॉर्म */
+.admin-form {
+    background: #ffffff;
+    padding: 24px;
+    border-radius: 16px;
+    border: 1px solid #dadce0;
+    margin-top: 10px;
+}
+
+.form-group {
+    margin-bottom: 16px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: #202124;
+}
+
+.form-group input, .form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #dadce0;
+    border-radius: 8px;
+    font-size: 14px;
+    background-color: #f8f9fa;
+    outline: none;
+}
+
+.form-group input:focus, .form-group textarea:focus {
+    border-color: #0f0f0f;
+    background-color: #ffffff;
+}
+
+.btn-submit {
+    background-color: #0f0f0f;
+    color: white;
+    padding: 14px;
+    border: none;
+    border-radius: 8px;
+    width: 100%;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
